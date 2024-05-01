@@ -3,63 +3,27 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_template/screen/login.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(const MyApp());
+import 'router.dart';
+
+void main() => runApp(const ProviderScope(child: MyApp()));
  
 /// The route configuration.
-final GoRouter _router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) {
-        return const HomeScreen();
-      },
-      routes: [
-        GoRoute(
-          path: 'login',
-          builder: (context, state) {
-            return const LoginScreen();
-          },
-        ),
-      ],
-    ),
-  ],
-);
-
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context, ref) {
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         useMaterial3: true,
       ),
-      routerConfig: _router,
+      routerConfig: router,
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
-      body: Center(
-          child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () => context.go('/login'),
-            child: const Text('Go to the Login screen'),
-          ),
-        ],
-      )),
-    );
-  }
-}

@@ -1,0 +1,11 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "../../go_router_riverpod/example"
+	}
+],
+  "settings": {}
+}

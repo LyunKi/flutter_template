@@ -5,11 +5,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
+      "name": "flutter_template",
       "request": "launch",
-      "name": "Launch Chrome against localhost",
-      "url": "http://localhost:8080",
-      "webRoot": "${workspaceFolder}"
+      "type": "dart",
+      "args": ["-d", "chrome"]
+    },
+    {
+      "name": "flutter_template (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "flutter_template (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
     }
   ]
 }

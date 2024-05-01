@@ -7,13 +7,13 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(children: [
-        const Text("Login"),
-        BackButton(
-          onPressed: () => context.go('/'),
-        )
-      ]),
+        body: SafeArea(
+      child: Center(
+        child: Wrap(spacing: 8, children: [
+          TextButton(
+              onPressed: () => context.go('/'), child: const Text('back'))
+        ]),
+      ),
     ));
   }
 }
