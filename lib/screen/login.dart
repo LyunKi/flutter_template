@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class Login extends StatelessWidget {
       child: Column(children: [
         const Text("Login"),
         BackButton(
-          onPressed: () => context.goNamed('index'),
+          onPressed: () => context.go('/'),
         )
       ]),
     ));
