@@ -1,3 +1,4 @@
+import 'package:flutter_template/screen/splash.dart';
 import 'package:flutter_template/state/user.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,7 +11,6 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
-  final isLogin = ref.watch(userStateProvider.select(isLoginSelector));
   return GoRouter(
     routes: [
       GoRoute(
@@ -20,9 +20,22 @@ GoRouter router(RouterRef ref) {
         },
         routes: <RouteBase>[
           GoRoute(
-            path: 'login',
+            path: 'splash',
             builder: (context, state) {
               return const LoginScreen();
+            },
+          ),
+          GoRoute(
+            path: 'login',
+            builder: (context, state) {
+              return const SplashScreen();
+            },
+            redirect: (context, state) async {
+              final isLogin =
+                  ref.read(userStateProvider.select(isLoginSelector));
+              return isLogin.whenOrNull(
+                data: (value) => value ? '/index' : null,
+              );
             },
           ),
           GoRoute(
@@ -31,8 +44,13 @@ GoRouter router(RouterRef ref) {
               return const UserScreen();
             },
             redirect: (context, state) async {
-              return isLogin.whenOrNull(
-                  data: (value) => value ? '/login' : null);
+              final isLogin =
+                  ref.read(userStateProvider.select(isLoginSelector));
+              return isLogin.when(
+                loading: () => '/splash',
+                error: (err, strace) => '/login',
+                data: (value) => value ? null : '/login',
+              );
             },
           ),
         ],

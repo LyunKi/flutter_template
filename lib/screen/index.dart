@@ -12,7 +12,6 @@ class IndexScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final user = ref.watch(userStateProvider);
     final themeData = Theme.of(context);
-    print(themeData.primaryColor);
     return Scaffold(
       appBar: AppBar(title: const Text('Index Screen')),
       body: SafeArea(
@@ -32,21 +31,19 @@ class IndexScreen extends ConsumerWidget {
                 data: (data) => data != null
                     ? RichText(
                         text: TextSpan(
-                        style: TextStyle(
-                            color: themeData.textTheme.bodyMedium!.color),
+                        style: themeData.textTheme.bodySmall,
                         text: 'Hello, ${data.name}! Click ',
                         children: [
                           TextSpan(
                             text: 'here',
-                            style: TextStyle(
+                            style: themeData.textTheme.bodySmall!.copyWith(
                               decoration: TextDecoration.underline,
-                              color: themeData.colorScheme.primary,
+                              color: themeData.colorScheme.primaryContainer,
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {},
                           ),
                           TextSpan(
-                            style: TextStyle(
-                                color: themeData.textTheme.bodyMedium!.color),
+                            style: themeData.textTheme.bodySmall,
                             text: ' to logout.',
                           ),
                         ],
@@ -54,12 +51,11 @@ class IndexScreen extends ConsumerWidget {
                     : RichText(
                         text: TextSpan(
                         text: 'Hello, you haven\'t login! Click ',
-                        style: TextStyle(
-                            color: themeData.textTheme.bodyMedium!.color),
+                        style: themeData.textTheme.bodySmall,
                         children: [
                           TextSpan(
                             text: 'here',
-                            style: TextStyle(
+                            style: themeData.textTheme.bodySmall!.copyWith(
                               decoration: TextDecoration.underline,
                               color: themeData.colorScheme.primaryContainer,
                             ),
@@ -69,8 +65,7 @@ class IndexScreen extends ConsumerWidget {
                               },
                           ),
                           TextSpan(
-                            style: TextStyle(
-                                color: themeData.textTheme.bodyMedium!.color),
+                            style: themeData.textTheme.bodySmall,
                             text: ' to login.',
                           ),
                         ],

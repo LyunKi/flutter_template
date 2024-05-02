@@ -3,18 +3,25 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'router.dart';
+import 'utils/logger.dart';
 
 extension MyThemeExtension on ThemeData {
   // 自定义主题属性
   double get spacing => 8.0;
 }
 
-void main() => runApp(const ProviderScope(child: MyApp()));
- 
-/// The route configuration.
+Future main() async {
+  logger.d('App started');
+  SharedPreferences.setPrefix('flutter_template_');
+  await dotenv.load(fileName: "../.env");
+  runApp(const ProviderScope(child: MyApp()));
+}
+
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
