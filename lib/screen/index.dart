@@ -1,44 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/main.dart';
 import 'package:flutter_template/state/user.dart';
 import 'package:go_router/go_router.dart';
-
-void dump(dynamic object, dynamic context) {
-  String str = '';
-
-  if (object is! String) {
-    String strObject = '';
-
-    if (object is Map) {
-      strObject = jsonEncode(object);
-    } else {
-      strObject = object.toString();
-    }
-
-    str += ' $strObject';
-  } else {
-    str += ' $object';
-  }
-
-  if (context != null) {
-    String strContext = '';
-
-    if (context is! String) {
-      if (context is Map) {
-        strContext = jsonEncode(context);
-      } else {
-        strContext = context.toString();
-      }
-    }
-
-    str += ' $strContext';
-  }
-
-  print(str);
-}
 
 class IndexScreen extends ConsumerWidget {
   const IndexScreen({super.key});
@@ -46,14 +11,15 @@ class IndexScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final user = ref.watch(userStateProvider);
-    dump(Theme.of(context), context);
+    final themeData = Theme.of(context);
+    print(themeData.primaryColor);
     return Scaffold(
       appBar: AppBar(title: const Text('Index Screen')),
       body: SafeArea(
         child: Center(
             child: Wrap(
           alignment: WrapAlignment.spaceBetween,
-          spacing: Theme.of(context).visualDensity.vertical,
+          spacing: Theme.of(context).spacing,
           crossAxisAlignment: WrapCrossAlignment.center,
           direction: Axis.vertical,
           children: [
@@ -66,17 +32,21 @@ class IndexScreen extends ConsumerWidget {
                 data: (data) => data != null
                     ? RichText(
                         text: TextSpan(
+                        style: TextStyle(
+                            color: themeData.textTheme.bodyMedium!.color),
                         text: 'Hello, ${data.name}! Click ',
                         children: [
                           TextSpan(
                             text: 'here',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
-                              color: Theme.of(context).primaryColor,
+                              color: themeData.colorScheme.primary,
                             ),
                             recognizer: TapGestureRecognizer()..onTap = () {},
                           ),
-                          const TextSpan(
+                          TextSpan(
+                            style: TextStyle(
+                                color: themeData.textTheme.bodyMedium!.color),
                             text: ' to logout.',
                           ),
                         ],
@@ -84,16 +54,23 @@ class IndexScreen extends ConsumerWidget {
                     : RichText(
                         text: TextSpan(
                         text: 'Hello, you haven\'t login! Click ',
+                        style: TextStyle(
+                            color: themeData.textTheme.bodyMedium!.color),
                         children: [
                           TextSpan(
                             text: 'here',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
-                              color: Theme.of(context).primaryColor,
+                              color: themeData.colorScheme.primaryContainer,
                             ),
-                            recognizer: TapGestureRecognizer()..onTap = () {},
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.go('/login');
+                              },
                           ),
-                          const TextSpan(
+                          TextSpan(
+                            style: TextStyle(
+                                color: themeData.textTheme.bodyMedium!.color),
                             text: ' to login.',
                           ),
                         ],

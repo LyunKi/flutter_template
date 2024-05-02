@@ -32,7 +32,7 @@ GoRouter router(RouterRef ref) {
             },
             redirect: (context, state) async {
               return isLogin.whenOrNull(
-                  data: (value) => value ? 'login' : null);
+                  data: (value) => value ? '/login' : null);
             },
           ),
         ],
