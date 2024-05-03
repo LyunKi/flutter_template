@@ -12,69 +12,71 @@ class IndexScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final user = ref.watch(userStateProvider);
     final themeData = Theme.of(context);
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(title: const Text('Index Screen')),
-      body: SafeArea(
-        child: Center(
-            child: Wrap(
-          alignment: WrapAlignment.spaceBetween,
-          spacing: Theme.of(context).spacing,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          direction: Axis.vertical,
-          children: [
-            const Text('You are in the Index Screen'),
-            ElevatedButton(
-              onPressed: () => context.go('/user'),
-              child: const Text('Go to the User screen'),
-            ),
-            user.when(
-                data: (data) => data != null
-                    ? RichText(
-                        text: TextSpan(
-                        style: themeData.textTheme.bodySmall,
-                        text: 'Hello, ${data.name}! Click ',
-                        children: [
-                          TextSpan(
-                            text: 'here',
-                            style: themeData.textTheme.bodySmall!.copyWith(
-                              decoration: TextDecoration.underline,
-                              color: themeData.colorScheme.primaryContainer,
-                            ),
-                            recognizer: TapGestureRecognizer()..onTap = () {},
+      body: Center(
+          child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        spacing: Theme.of(context).spacing,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        direction: Axis.vertical,
+        children: [
+          const Text('You are in the Index Screen'),
+          ElevatedButton(
+            onPressed: () => context.push('/user'),
+            child: const Text('Go to the User screen'),
+          ),
+          user.when(
+              data: (data) => data != null
+                  ? RichText(
+                      text: TextSpan(
+                      style: themeData.textTheme.bodySmall,
+                      text: 'Hello, ${data.name}! Click ',
+                      children: [
+                        TextSpan(
+                          text: 'here',
+                          style: themeData.textTheme.bodySmall!.copyWith(
+                            decoration: TextDecoration.underline,
+                            color: themeData.colorScheme.primaryContainer,
                           ),
-                          TextSpan(
-                            style: themeData.textTheme.bodySmall,
-                            text: ' to logout.',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              ref.read(userStateProvider.notifier).logout();
+                            },
+                        ),
+                        TextSpan(
+                          style: themeData.textTheme.bodySmall,
+                          text: ' to logout.',
+                        ),
+                      ],
+                    ))
+                  : RichText(
+                      text: TextSpan(
+                      text: 'Hello, you haven\'t login! Click ',
+                      style: themeData.textTheme.bodySmall,
+                      children: [
+                        TextSpan(
+                          text: 'here',
+                          style: themeData.textTheme.bodySmall!.copyWith(
+                            decoration: TextDecoration.underline,
+                            color: themeData.colorScheme.primaryContainer,
                           ),
-                        ],
-                      ))
-                    : RichText(
-                        text: TextSpan(
-                        text: 'Hello, you haven\'t login! Click ',
-                        style: themeData.textTheme.bodySmall,
-                        children: [
-                          TextSpan(
-                            text: 'here',
-                            style: themeData.textTheme.bodySmall!.copyWith(
-                              decoration: TextDecoration.underline,
-                              color: themeData.colorScheme.primaryContainer,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                context.go('/login');
-                              },
-                          ),
-                          TextSpan(
-                            style: themeData.textTheme.bodySmall,
-                            text: ' to login.',
-                          ),
-                        ],
-                      )),
-                error: (err, stack) => const Text('error'),
-                loading: () => const Text('loading'))
-          ],
-        )),
-      ),
-    );
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              context.go('/login');
+                            },
+                        ),
+                        TextSpan(
+                          style: themeData.textTheme.bodySmall,
+                          text: ' to login.',
+                        ),
+                      ],
+                    )),
+              error: (err, stack) => const Text('error'),
+              loading: () => const Text('loading'))
+        ],
+      )),
+    ));
   }
 }

@@ -1,22 +1,22 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/user.dart';
 
-class UserScreen extends StatefulWidget {
+
+class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({super.key});
 
   @override
-  _UserScreenState createState() => _UserScreenState();
+  ConsumerState<UserScreen> createState() => _UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class _UserScreenState extends ConsumerState<UserScreen> {
   final List<User> _users = [];
-
   void _showAddUserDialog(BuildContext context) {
     String newUsername = '';
-
     showDialog(
       context: context,
       builder: (BuildContext context) {

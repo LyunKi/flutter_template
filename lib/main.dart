@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/utils/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'router.dart';
@@ -14,6 +15,7 @@ extension MyThemeExtension on ThemeData {
   // 自定义主题属性
   double get spacing => 8.0;
 }
+
 
 Future main() async {
   logger.d('App started');
@@ -27,7 +29,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData.light().copyWith(
@@ -37,7 +38,8 @@ class MyApp extends ConsumerWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
           brightness: Brightness.dark),
       themeMode: ThemeMode.dark,
-      routerConfig: router,
+        routerConfig: createRouter(),
+        scaffoldMessengerKey: globalMessengerKey
     );
   }
 }

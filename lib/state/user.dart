@@ -20,21 +20,41 @@ class UserState extends _$UserState {
 
   Future<void> login(String userId) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final response = await api.get('/users/$userId');
-      return User.fromJson(response.data);
-    });
+    try {
+      final response = await api.get('/demo/users/$userId');
+      final userJson = response.data;
+      final user = User.fromJson(userJson);
+      final storage = await SharedPreferences.getInstance();
+      await storage.setString(userStorageKey, jsonEncode(userJson));
+      state = AsyncValue.data(user);
+    } catch (e) {
+      state = const AsyncValue.data(null);
+      rethrow;
+    }
+  }
+
+  Future<void> logout() async {
+    state = const AsyncValue.loading();
+    try {
+      final storage = await SharedPreferences.getInstance();
+      await storage.remove(userStorageKey);
+      state = const AsyncValue.data(null);
+    } catch (e) {
+      state = const AsyncValue.data(null);
+      rethrow;
+    }
+
   }
 
   Future<User?> _getUserFromStorage() async {
     final storage = await SharedPreferences.getInstance();
     try {
-      final userJson = storage.getString(userStorageKey);
-      if (userJson != null) {
-        return User.fromJson(json.decode(userJson));
+      final userStr = storage.getString(userStorageKey);
+      if (userStr != null) {
+        return User.fromJson(jsonDecode(userStr));
       }
     } catch (e) {
-      logger.e("Invalid user type: $e");
+      logger.e("Failed to get user from storage: $e");
       storage.remove(userStorageKey);
       return null;
     }
