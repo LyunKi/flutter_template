@@ -20,6 +20,7 @@ class UserState extends _$UserState {
 
   Future<void> login(String userId) async {
     state = const AsyncValue.loading();
+    await Future.delayed(const Duration(seconds: 2));
     try {
       final response = await api.get('/demo/users/$userId');
       final userJson = response.data;
@@ -35,6 +36,7 @@ class UserState extends _$UserState {
 
   Future<void> logout() async {
     state = const AsyncValue.loading();
+    await Future.delayed(const Duration(seconds: 2));
     try {
       final storage = await SharedPreferences.getInstance();
       await storage.remove(userStorageKey);
@@ -48,6 +50,7 @@ class UserState extends _$UserState {
 
   Future<User?> _getUserFromStorage() async {
     final storage = await SharedPreferences.getInstance();
+    await Future.delayed(const Duration(seconds: 2));
     try {
       final userStr = storage.getString(userStorageKey);
       if (userStr != null) {

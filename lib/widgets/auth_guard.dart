@@ -10,12 +10,14 @@ class AuthGuard extends ConsumerStatefulWidget {
   final Function fallbackAction;
   final Widget child;
   final Checker? checker;
+  final Widget? placeholder;
 
   const AuthGuard({
     super.key,
     required this.fallbackAction,
     required this.child,
     this.checker,
+    this.placeholder,
   });
 
   @override
@@ -34,29 +36,26 @@ class _AuthGuardState extends ConsumerState<AuthGuard> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final user = ref.watch(userStateProvider);
     final realChecker = widget.checker ?? _defaultChecker;
-    return user.isLoading
-        ? const Scaffold(
+    final realPlaceholder = widget.placeholder ??
+        const Scaffold(
             body: Center(child: LoadingSpinner()),
-          )
+        );
+    return user.isLoading
+        ? realPlaceholder
         : FutureBuilder<bool>(
             future: realChecker(user.value),
             builder: (_, result) {
               if (!result.hasData ||
                   result.hasError ||
                   result.connectionState != ConnectionState.done) {
-                return const LoadingSpinner();
+                return Container();
               }
               if (!result.data!) {
                 _fallback();
-                return const LoadingSpinner();
+                return Container();
               }
               return widget.child;
             },

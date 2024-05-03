@@ -1,20 +1,43 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/models/common.dart';
+import 'package:flutter_template/utils/api.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/user.dart';
 
+part 'user.g.dart';
+
+@riverpod
+class UserListState extends _$UserListState {
+  @override
+  Future<List<User>> build() async {
+    return _fetchUserList();
+  }
+
+  Future<List<User>> _fetchUserList() async {
+    try {
+      final response = await api.get('/demo/users?page=1');
+      final userListJson = response.data;
+      print("userListJson, $userListJson");
+      final result =
+          Paginated<User>.fromJson(userListJson, (json) => User.fromJson(json));
+      return result.items;
+    } catch (e) {
+      print("e, $e");
+      return [];
+    }
+  }
+}
 
 class UserScreen extends ConsumerStatefulWidget {
   const UserScreen({super.key});
 
   @override
-  ConsumerState<UserScreen> createState() => _UserScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends ConsumerState<UserScreen> {
-  final List<User> _users = [];
   void _showAddUserDialog(BuildContext context) {
     String newUsername = '';
     showDialog(
@@ -38,11 +61,6 @@ class _UserScreenState extends ConsumerState<UserScreen> {
             TextButton(
               onPressed: () {
                 if (newUsername.isNotEmpty) {
-                  setState(() {
-                    _users.add(User(
-                        id: Random().nextInt(10000).toString(),
-                        name: newUsername));
-                  });
                   Navigator.of(context).pop();
                 }
               },
@@ -79,9 +97,6 @@ class _UserScreenState extends ConsumerState<UserScreen> {
             TextButton(
               onPressed: () {
                 if (editedUsername.isNotEmpty) {
-                  setState(() {
-                    user = user.copyWith(name: editedUsername);
-                  });
                   Navigator.of(context).pop();
                 }
               },
@@ -93,72 +108,23 @@ class _UserScreenState extends ConsumerState<UserScreen> {
     );
   }
 
-  void _deleteUser(User user) {
-    setState(() {
-      _users.remove(user);
-    });
-  }
+  void _deleteUser(User user) {}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('User Management'),
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(
-                    width: 150,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Username',
-                      ),
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    label: const Text('新增用户'),
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      _showAddUserDialog(context);
-                    },
-                  ),
-                ],
-              ),
+    final users = ref.watch(userListStateProvider);
+    print('users, ${users.value?.length}');
+    return users.isLoading
+        ? Container()
+        : Scaffold(
+            appBar: AppBar(
+              title: const Text('User Management'),
             ),
-            DataTable(
-              columns: const [
-                DataColumn(label: Text('Username')),
-                DataColumn(label: Text('Actions')),
-              ],
-              rows: _users.map((user) {
-                return DataRow(cells: [
-                  DataCell(Text(user.name)),
-                  DataCell(Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          _showEditUserDialog(context, user);
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          _deleteUser(user);
-                        },
-                      ),
-                    ],
-                  )),
-                ]);
-              }).toList(),
-            ),
-          ],
-        ));
+            body: RefreshIndicator(
+                onRefresh: () => ref.refresh(userListStateProvider.future),
+                child: ListView(
+                  children:
+                      users.value!.map((user) => Text(user.name)).toList(),
+                )));
   }
 }

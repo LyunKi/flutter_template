@@ -29,6 +29,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
+    final router = ref.read(routerProvider);
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData.light().copyWith(
@@ -38,7 +39,7 @@ class MyApp extends ConsumerWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
           brightness: Brightness.dark),
       themeMode: ThemeMode.dark,
-        routerConfig: createRouter(),
+        routerConfig: router,
         scaffoldMessengerKey: globalMessengerKey
     );
   }

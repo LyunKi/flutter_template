@@ -1,11 +1,16 @@
+import 'package:flutter_template/state/user.dart';
 import 'package:flutter_template/widgets/auth_guard.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'screen/index.dart';
 import 'screen/login.dart';
 import 'screen/user.dart';
 
-GoRouter createRouter() {
+part 'router.g.dart';
+
+@riverpod
+GoRouter router(RouterRef ref) {
   return GoRouter(
     routes: [
       GoRoute(
@@ -17,20 +22,19 @@ GoRouter createRouter() {
           GoRoute(
             path: 'login',
             builder: (context, state) {
-              return AuthGuard(
-                fallbackAction: () {
-                  final redirect = state.uri.queryParameters['redirect'];
-                  if (redirect != null) {
-                    context.go('/$redirect');
-                  } else {
-                    context.go('/');
-                  }
-                },
-                child: const LoginScreen(),
-                checker: (maybeUser) async {
-                  return maybeUser == null;
-                },
-              );
+              return LoginScreen(
+                  redirect: state.uri.queryParameters['redirect']);
+            },
+            redirect: (context, state) {
+              final user = ref.read(userStateProvider);
+              if (user.hasValue && user.value != null) {
+                final redirect = state.uri.queryParameters['redirect'];
+                if (redirect != null) {
+                  return redirect;
+                }
+                return '/';
+              }
+              return null;
             },
           ),
           GoRoute(
@@ -38,7 +42,7 @@ GoRouter createRouter() {
             builder: (context, state) {
               return AuthGuard(
                   fallbackAction: () {
-                    context.go('/login?redirect=user');
+                    context.go('/login?redirect=/user');
                   },
                   child: const UserScreen());
             },

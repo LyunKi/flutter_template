@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -13,3 +12,14 @@ class User with _$User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }
+
+@freezed
+class UserDto with _$UserDto {
+  const factory UserDto({
+    required String name,
+  }) = _UserDto;
+
+  factory UserDto.fromJson(Map<String, dynamic> json) =>
+      _$UserDtoFromJson(json);
+}
+

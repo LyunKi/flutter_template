@@ -24,7 +24,7 @@ class IndexScreen extends ConsumerWidget {
         children: [
           const Text('You are in the Index Screen'),
           ElevatedButton(
-            onPressed: () => context.push('/user'),
+            onPressed: () => context.go('/user'),
             child: const Text('Go to the User screen'),
           ),
           user.when(
