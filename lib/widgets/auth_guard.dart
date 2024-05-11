@@ -30,9 +30,7 @@ class _AuthGuardState extends ConsumerState<AuthGuard> {
   }
 
   void _fallback() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      widget.fallbackAction();
-    });
+    widget.fallbackAction();
   }
 
   @override

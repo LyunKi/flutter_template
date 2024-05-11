@@ -1,11 +1,16 @@
 {
   "folders": [
-	{
-		"path": ".."
-	},
-	{
-		"path": "../../go_router_riverpod/example"
-	}
-],
-  "settings": {}
+    {
+      "path": ".."
+    },
+    {
+      "path": "../../go_router_riverpod/example"
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  }
 }

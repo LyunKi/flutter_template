@@ -6,6 +6,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: a better splash screen
     return const Scaffold(
       body: Center(
         child: Column(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/main.dart';
 import 'package:flutter_template/state/user.dart';
-import 'package:flutter_template/utils/toast.dart';
+import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_template/widgets/loading_spinner.dart';
 import 'package:go_router/go_router.dart';
 
@@ -61,7 +61,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                   return;
                 }
                 if (widget.redirect != null) {
-                  context.go(widget.redirect!);
+                  context.go('/${widget.redirect}');
                   return;
                 }
                 if (context.canPop()) {

@@ -5,11 +5,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/utils/toast.dart';
+import 'package:flutter_template/common/constants.dart';
+import 'package:flutter_template/common/utils/state_logger.dart';
+import 'package:flutter_template/common/utils/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'router.dart';
-import 'utils/logger.dart';
+import 'router/router.dart';
+import 'common/utils/logger.dart';
 
 extension MyThemeExtension on ThemeData {
   // 自定义主题属性
@@ -18,10 +20,15 @@ extension MyThemeExtension on ThemeData {
 
 
 Future main() async {
-  logger.d('App started');
+  logger.d('App started at ${Uri.base}');
   SharedPreferences.setPrefix('flutter_template_');
   await dotenv.load(fileName: "../.env");
-  runApp(const ProviderScope(child: MyApp()));
+  List<ProviderObserver>? observers;
+  if (dotenv.env[mode]! == debugMode) {
+    observers = [const StateLogger()];
+  }
+
+  runApp(ProviderScope(observers: observers, child: const MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
