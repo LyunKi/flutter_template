@@ -47,9 +47,9 @@ class MyApp extends ConsumerWidget {
       darkTheme: ThemeData.dark().copyWith(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
           brightness: Brightness.dark),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
         routerConfig: router,
-        scaffoldMessengerKey: globalMessengerKey
+      scaffoldMessengerKey: globalMessengerKey,
     );
   }
 }

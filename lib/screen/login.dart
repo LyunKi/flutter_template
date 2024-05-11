@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/main.dart';
-import 'package:flutter_template/state/user.dart';
-import 'package:flutter_template/common/utils/toast.dart';
-import 'package:flutter_template/widgets/loading_spinner.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -16,79 +13,55 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginState extends ConsumerState<LoginScreen> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    _controller = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  final _loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userStateProvider);
+    final themeData = Theme.of(context);
     return Scaffold(
         body: SafeArea(
-            child: Center(
-      child: Wrap(
-        spacing: Theme.of(context).spacing,
-        direction: Axis.vertical,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          SizedBox(
-            width: 150,
-            child: TextField(
-              autofocus: true,
-              controller: _controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'User id',
-              ),
+            child: Container(
+                child: Center(
+      child: Card(
+        margin: EdgeInsets.all(themeData.spacing * 2),
+        child: Padding(
+          padding: EdgeInsets.all(themeData.spacing * 2),
+          child: Form(
+            key: _loginFormKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Phone number',
+                    prefixIcon: Icon(Icons.phone),
+                  ),
+                ),
+                SizedBox(height: themeData.spacing),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                  obscureText: true,
+                ),
+                SizedBox(height: themeData.spacing * 4),
+                Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: ElevatedButton(
+                          style: ButtonStyle(),
+                          onPressed: () {},
+                          child: Text('Login'),
+                        )),
+                  ],
+                )
+              ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              try {
-                String textValue = _controller.text;
-                await ref.read(userStateProvider.notifier).login(textValue);
-                if (!context.mounted) {
-                  return;
-                }
-                if (widget.redirect != null) {
-                  context.go('/${widget.redirect}');
-                  return;
-                }
-                if (context.canPop()) {
-                  context.pop();
-                  return;
-                }
-                context.go('/index');
-              } catch (e) {
-                globalMessengerKey.currentState?.showSnackBar(
-                    const SnackBar(content: Text("Login failed")));
-              }
-            },
-            child: SizedBox(
-              width: 150,
-              child: Wrap(
-                spacing: Theme.of(context).spacing,
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  user.isLoading ? const LoadingSpinner() : Container(),
-                  const Text('Login')
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
-    )));
+    ))));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/screen/home.dart';
+import 'package:flutter_template/screen/login.dart';
 import 'package:flutter_template/screen/splash.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,7 +33,7 @@ class LoginRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const SplashScreen();
+    return const LoginScreen();
   }
 }
 
