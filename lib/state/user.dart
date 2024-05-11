@@ -21,6 +21,7 @@ class UserState extends _$UserState {
       }
       if (next.requireValue == null) {
         _sharedPreferences.remove(_tokenStorageKey);
+        return;
       }
       _sharedPreferences.setString(_tokenStorageKey, next.requireValue!.token);
     });
