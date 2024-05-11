@@ -28,24 +28,11 @@ GoRouter router(RouterRef ref) {
     debugLogDiagnostics: dotenv.env[mode]! == debugMode,
     routes: $appRoutes,
     redirect: (context, state) {
-      final isLoggingIn = state.uri.path == const LoginRoute().location;
-      if (isAuth.value.unwrapPrevious().hasError) {
-        return isLoggingIn ? null : const LoginRoute().location;
-      }
-
       final isSplash = state.uri.path == const SplashRoute().location;
       if (isAuth.value.isLoading || !isAuth.value.hasValue) {
         return isSplash ? null : const SplashRoute().location;
       }
-
-      final auth = isAuth.value.requireValue;
-      if (isSplash) {
-        return auth ? const HomeRoute().location : const LoginRoute().location;
-      }
-      if (isLoggingIn) {
-        return auth ? const HomeRoute().location : null;
-      }
-      return auth ? null : const SplashRoute().location;
+      return null;
     },
   );
   ref.onDispose(router.dispose);

@@ -39,14 +39,26 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final router = ref.read(routerProvider);
+    final elevatedButtonTheme = ElevatedButtonThemeData(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // 设置圆角大小
+          ),
+        ),
+      ),
+    );
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+        elevatedButtonTheme: elevatedButtonTheme,
       ),
       darkTheme: ThemeData.dark().copyWith(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
-          brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
+        elevatedButtonTheme: elevatedButtonTheme,
+      ),
       themeMode: ThemeMode.light,
         routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
