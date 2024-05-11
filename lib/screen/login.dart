@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/main.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -38,7 +37,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     InternationalPhoneNumberInput(
-                      inputDecoration: InputDecoration(
+                      inputDecoration: const InputDecoration(
                         labelText: 'Phone',
                         hintText: 'Please input your phone number',
                       ),
@@ -53,23 +52,24 @@ class _LoginState extends ConsumerState<LoginScreen> {
                         print(value);
                       },
                       selectorConfig: SelectorConfig(
-                          leadingPadding: 8,
+                          leadingPadding: themeData.spacing,
                           setSelectorButtonAsPrefixIcon: true,
                           selectorType: PhoneInputSelectorType.DIALOG),
                       ignoreBlank: false,
                       initialValue: number,
                       formatInput: true,
-                      countries: ['CN', 'US'],
+                      countries: const ['CN', 'US', 'JP', 'UK', 'FR'],
                       onSaved: (PhoneNumber number) {
                         print('On Saved: $number');
                       },
                     ),
+                    SizedBox(height: themeData.spacing),
                     TextFormField(
                       validator: (value) {
                         return 'false';
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Password',
                       ),
                       obscureText: true,
@@ -82,13 +82,13 @@ class _LoginState extends ConsumerState<LoginScreen> {
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
-                                    themeData.colorScheme.primaryContainer),
+                                    themeData.colorScheme.primary),
                               ),
                               onPressed: () {},
                               child: Text(
                                 'Login',
                                 style: TextStyle(
-                                    color: themeData.colorScheme.primary),
+                                    color: themeData.colorScheme.onPrimary),
                               ),
                             )),
                       ],

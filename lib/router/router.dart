@@ -24,16 +24,9 @@ GoRouter router(RouterRef ref) {
   final router = GoRouter(
     navigatorKey: routerKey,
     refreshListenable: isAuth,
-    initialLocation: const SplashRoute().location,
+    initialLocation: const LoginRoute().location,
     debugLogDiagnostics: dotenv.env[mode]! == debugMode,
     routes: $appRoutes,
-    redirect: (context, state) {
-      final isSplash = state.uri.path == const SplashRoute().location;
-      if (isAuth.value.isLoading || !isAuth.value.hasValue) {
-        return isSplash ? null : const SplashRoute().location;
-      }
-      return null;
-    },
   );
   ref.onDispose(router.dispose);
   return router;
