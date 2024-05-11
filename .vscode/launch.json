@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "flutter_template",
+      "name": "flutter_template (chrome)",
       "request": "launch",
       "type": "dart",
       "args": ["-d", "chrome", "--web-port", "3001"]
