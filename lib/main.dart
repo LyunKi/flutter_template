@@ -10,6 +10,7 @@ import 'package:flutter_template/common/utils/state_logger.dart';
 import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:harmony/harmony.dart';
 
 import 'common/utils/logger.dart';
 import 'router/router.dart';
@@ -21,8 +22,9 @@ extension MyThemeExtension on ThemeData {
 
 
 Future main() async {
-  usePathUrlStrategy();
   logger.d('App started at ${Uri.base}');
+  usePathUrlStrategy();
+  initCountries();
   SharedPreferences.setPrefix('flutter_template_');
   await dotenv.load(fileName: ".env");
   List<ProviderObserver>? observers;
