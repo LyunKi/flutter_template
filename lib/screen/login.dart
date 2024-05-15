@@ -23,8 +23,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
     return Scaffold(
         backgroundColor: themeData.colorScheme.background,
         body: SafeArea(
-            child: Container(
-                child: Center(
+            child: Center(
           child: Card(
             margin: EdgeInsets.all(themeData.spacing * 2),
             child: Padding(
@@ -58,7 +57,6 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       ignoreBlank: false,
                       initialValue: number,
                       formatInput: true,
-                      countries: const ['CN', 'US', 'JP', 'UK', 'FR'],
                       onSaved: (PhoneNumber number) {
                         print('On Saved: $number');
                       },
@@ -98,6 +96,6 @@ class _LoginState extends ConsumerState<LoginScreen> {
               ),
             ),
           ),
-        ))));
+        )));
   }
 }

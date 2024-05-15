@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/screen/demo_country_list.dart';
 import 'package:flutter_template/screen/home.dart';
 import 'package:flutter_template/screen/login.dart';
 import 'package:flutter_template/screen/splash.dart';
@@ -34,6 +35,16 @@ class LoginRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const LoginScreen();
+  }
+}
+
+@TypedGoRoute<DemoRoute>(path: '/demo')
+class DemoRoute extends GoRouteData {
+  const DemoRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CountryListDemo();
   }
 }
 

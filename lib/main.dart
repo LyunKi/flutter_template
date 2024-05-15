@@ -11,6 +11,7 @@ import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
+import 'package:harmony/constants.dart';
 
 import 'common/utils/logger.dart';
 import 'router/router.dart';
@@ -22,9 +23,11 @@ extension MyThemeExtension on ThemeData {
 
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   logger.d('App started at ${Uri.base}');
   usePathUrlStrategy();
-  initCountries();
+  await initCountries();
+  logger.d('Init countries: ${countries.length}');
   SharedPreferences.setPrefix('flutter_template_');
   await dotenv.load(fileName: ".env");
   List<ProviderObserver>? observers;
@@ -45,7 +48,8 @@ class MyApp extends ConsumerWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // 设置圆角大小
+            // 设置圆角大小
+            borderRadius: BorderRadius.circular(8), 
           ),
         ),
       ),

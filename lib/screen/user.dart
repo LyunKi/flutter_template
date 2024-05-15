@@ -19,7 +19,6 @@ class UserListState extends _$UserListState {
     try {
       final response = await api.get('/demo/users?page=1');
       final userListJson = response.data;
-      print("userListJson, $userListJson");
       final result =
           Paginated<User>.fromJson(userListJson, (json) => User.fromJson(json));
       return result.items;
