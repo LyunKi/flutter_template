@@ -44,6 +44,8 @@ dependencies:
   logger: ^2.2.0
   dio: ^5.4.3+1
   intl_phone_number_input: ^0.7.4
+  harmony:
+    path: ../harmony
 
 dev_dependencies:
   flutter_test:
@@ -61,8 +63,6 @@ dev_dependencies:
   freezed: ^2.5.2
   riverpod_lint: ^2.3.10
   go_router_builder: ^2.6.2
-  harmony:
-    path: ../harmony
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

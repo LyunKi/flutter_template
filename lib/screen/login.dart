@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/common/utils/logger.dart';
 import 'package:flutter_template/main.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:harmony/harmony.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -62,6 +64,18 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       },
                     ),
                     SizedBox(height: themeData.spacing),
+                    PhoneTextFormField(
+                      validator: (value) {
+                        return 'false';
+                      },
+                      initialValue: '123',
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: const InputDecoration(
+                        labelText: 'Phone',
+                        hintText: 'Please input your phone number',
+                      ),
+                    ),
+                    SizedBox(height: themeData.spacing),
                     TextFormField(
                       validator: (value) {
                         return 'false';
@@ -69,10 +83,11 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: const InputDecoration(
                         labelText: 'Password',
+                        prefixIcon: Icon(Icons.lock)
                       ),
                       obscureText: true,
                     ),
-                    SizedBox(height: themeData.spacing * 4),
+                    SizedBox(height: themeData.spacing * 2),
                     Row(
                       children: [
                         Expanded(

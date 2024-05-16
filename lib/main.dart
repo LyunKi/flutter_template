@@ -11,14 +11,15 @@ import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
-import 'package:harmony/constants.dart';
 
 import 'common/utils/logger.dart';
 import 'router/router.dart';
 
+const double globalSpacing = 8.0;
+
 extension MyThemeExtension on ThemeData {
   // 自定义主题属性
-  double get spacing => 8.0;
+  double get spacing => globalSpacing;
 }
 
 
@@ -27,7 +28,6 @@ Future main() async {
   logger.d('App started at ${Uri.base}');
   usePathUrlStrategy();
   await initCountries();
-  logger.d('Init countries: ${countries.length}');
   SharedPreferences.setPrefix('flutter_template_');
   await dotenv.load(fileName: ".env");
   List<ProviderObserver>? observers;
@@ -48,24 +48,30 @@ class MyApp extends ConsumerWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            // 设置圆角大小
-            borderRadius: BorderRadius.circular(8), 
+            borderRadius: BorderRadius.circular(globalSpacing), 
           ),
         ),
       ),
+    );
+    const inputDecorationTheme = InputDecorationTheme(
+      border: OutlineInputBorder(),
+      contentPadding: EdgeInsets.symmetric(
+          vertical: globalSpacing * 2, horizontal: globalSpacing),
     );
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
         elevatedButtonTheme: elevatedButtonTheme,
+          inputDecorationTheme: inputDecorationTheme
       ),
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
         elevatedButtonTheme: elevatedButtonTheme,
+        inputDecorationTheme: inputDecorationTheme,
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
         routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
     );
