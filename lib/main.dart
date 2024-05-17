@@ -11,21 +11,15 @@ import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'common/utils/logger.dart';
 import 'router/router.dart';
 
-const double globalSpacing = 8.0;
-
-extension MyThemeExtension on ThemeData {
-  // 自定义主题属性
-  double get spacing => globalSpacing;
-}
-
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  logger.d('App started at ${Uri.base}');
+  logger.d(
+      'App started at ${Uri.base}, countryCode is ${WidgetsBinding.instance.platformDispatcher.locale.countryCode}');
   usePathUrlStrategy();
   await initCountries();
   SharedPreferences.setPrefix('flutter_template_');
@@ -48,7 +42,7 @@ class MyApp extends ConsumerWidget {
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(globalSpacing), 
+            borderRadius: BorderRadius.circular(globalSpacing),
           ),
         ),
       ),
@@ -61,10 +55,9 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Auth',
       theme: ThemeData.light().copyWith(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
-        elevatedButtonTheme: elevatedButtonTheme,
-          inputDecorationTheme: inputDecorationTheme
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+          elevatedButtonTheme: elevatedButtonTheme,
+          inputDecorationTheme: inputDecorationTheme),
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
@@ -74,7 +67,8 @@ class MyApp extends ConsumerWidget {
       themeMode: ThemeMode.light,
         routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
-

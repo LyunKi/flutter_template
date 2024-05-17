@@ -45,7 +45,7 @@ class CountryListDemo extends StatelessWidget {
                   });
             },
             child: Text('test')),
-        Expanded(child: PhoneTextFormField())
+        Expanded(child: PhoneNumberFormField())
       ],
     )
     );

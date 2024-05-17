@@ -43,9 +43,11 @@ dependencies:
   flutter_dotenv: ^5.1.0
   logger: ^2.2.0
   dio: ^5.4.3+1
-  intl_phone_number_input: ^0.7.4
   harmony:
     path: ../harmony
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
   assets:
     - .env
   # The following line ensures that the Material Icons font is

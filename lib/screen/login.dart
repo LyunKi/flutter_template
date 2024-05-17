@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/common/utils/logger.dart';
-import 'package:flutter_template/main.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:harmony/harmony.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -17,11 +15,13 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginState extends ConsumerState<LoginScreen> {
   final _loginFormKey = GlobalKey<FormState>();
 
-  PhoneNumber number = PhoneNumber(isoCode: 'CN');
+  PhoneNumber number = PhoneNumber.fromCca2Code(
+      WidgetsBinding.instance.platformDispatcher.locale.countryCode);
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final i18n = AppLocalizations.of(context)!;
     return Scaffold(
         backgroundColor: themeData.colorScheme.background,
         body: SafeArea(
@@ -37,42 +37,15 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    InternationalPhoneNumberInput(
-                      inputDecoration: const InputDecoration(
-                        labelText: 'Phone',
-                        hintText: 'Please input your phone number',
-                      ),
-                      validator: (value) {
-                        return 'false';
-                      },
-                      autoValidateMode: AutovalidateMode.onUserInteraction,
-                      onInputChanged: (PhoneNumber number) {
-                        print(number.phoneNumber);
-                      },
-                      onInputValidated: (bool value) {
-                        print(value);
-                      },
-                      selectorConfig: SelectorConfig(
-                          leadingPadding: themeData.spacing,
-                          setSelectorButtonAsPrefixIcon: true,
-                          selectorType: PhoneInputSelectorType.DIALOG),
-                      ignoreBlank: false,
-                      initialValue: number,
-                      formatInput: true,
-                      onSaved: (PhoneNumber number) {
-                        print('On Saved: $number');
-                      },
-                    ),
                     SizedBox(height: themeData.spacing),
-                    PhoneTextFormField(
+                    PhoneNumberFormField(
                       validator: (value) {
                         return 'false';
                       },
-                      initialValue: '123',
+                      initialValue: number,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: const InputDecoration(
-                        labelText: 'Phone',
-                        hintText: 'Please input your phone number',
+                      decoration: InputDecoration(
+                        labelText: i18n.phoneNumber,
                       ),
                     ),
                     SizedBox(height: themeData.spacing),
@@ -81,8 +54,8 @@ class _LoginState extends ConsumerState<LoginScreen> {
                         return 'false';
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: const InputDecoration(
-                        labelText: 'Password',
+                      decoration: InputDecoration(
+                          labelText: i18n.password,
                         prefixIcon: Icon(Icons.lock)
                       ),
                       obscureText: true,
@@ -99,7 +72,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                               ),
                               onPressed: () {},
                               child: Text(
-                                'Login',
+                                i18n.login,
                                 style: TextStyle(
                                     color: themeData.colorScheme.onPrimary),
                               ),

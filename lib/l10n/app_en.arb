@@ -1,0 +1,9 @@
+{
+  "login": "Login",
+  "@login": {
+    "description": "Tell user to login application."
+  },
+  "@_business": {},
+  "phoneNumber": "Phone number",
+  "password": "Password"
+}
