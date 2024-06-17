@@ -1,9 +1,9 @@
 import 'package:flutter_template/common/utils/api.dart';
+import 'package:harmony/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
-import '../common/utils/logger.dart';
 
 part 'user.g.dart';
 

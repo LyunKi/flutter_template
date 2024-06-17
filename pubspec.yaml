@@ -41,7 +41,6 @@ dependencies:
   json_serializable: ^6.8.0
   shared_preferences: ^2.2.3
   flutter_dotenv: ^5.1.0
-  logger: ^2.2.0
   dio: ^5.4.3+1
   harmony:
     path: ../harmony

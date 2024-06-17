@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/common/constants.dart';
-import 'package:flutter_template/common/utils/state_logger.dart';
 import 'package:flutter_template/common/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:harmony/utils/logger.dart';
+import 'package:harmony/utils/state_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'common/utils/logger.dart';
 import 'router/router.dart';
 
 Future main() async {
