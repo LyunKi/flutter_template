@@ -37,7 +37,8 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    SizedBox(height: themeData.spacing),
+                    Text("Get Started..."),
+                    SizedBox(height: themeData.spacing * 2),
                     PhoneNumberFormField(
                       validator: (value) {
                         return 'false';
@@ -56,8 +57,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                           labelText: i18n.password,
-                        prefixIcon: Icon(Icons.lock)
-                      ),
+                          prefixIcon: Icon(Icons.lock)),
                       obscureText: true,
                     ),
                     SizedBox(height: themeData.spacing * 2),
