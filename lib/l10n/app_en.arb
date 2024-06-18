@@ -4,6 +4,7 @@
     "description": "Tell user to login application."
   },
   "@_business": {},
+  "welcome": "Begin Your Journey",
   "phoneNumber": "Phone number",
   "password": "Password"
 }

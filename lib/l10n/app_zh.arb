@@ -1,6 +1,7 @@
 {
     "login": "登录",
     "@_business": {},
+    "welcome": "开始您的旅程",
     "phoneNumber": "手机号",
     "password": "密码"
 }
