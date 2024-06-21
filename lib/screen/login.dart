@@ -14,6 +14,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginState extends ConsumerState<LoginScreen> {
   final _loginFormKey = GlobalKey<FormState>();
+  var _passwordVisible = false;
 
   PhoneNumber number = PhoneNumber.fromCca2Code(
       WidgetsBinding.instance.platformDispatcher.locale.countryCode);
@@ -37,11 +38,18 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(i18n!.welcome),
+                    Text(
+                      i18n!.welcome,
+                      style: themeData.textTheme.titleLarge,
+                    ),
                     SizedBox(height: themeData.spacing * 2),
                     PhoneNumberFormField(
                       validator: (value) {
-                        return 'false';
+                        final isValid = value?.isValid() ?? false;
+                        if (isValid) {
+                          return null;
+                        }
+                        return i18n!.welcome;
                       },
                       initialValue: number,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -56,9 +64,22 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
-                          labelText: i18n.password,
-                          prefixIcon: Icon(Icons.lock)),
-                      obscureText: true,
+                        labelText: i18n.password,
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      obscureText: !_passwordVisible,
                     ),
                     SizedBox(height: themeData.spacing * 2),
                     Row(
