@@ -11,7 +11,7 @@ A new Flutter project.
 3. 桌面启动: flutter run -d windows
 
 ## clean code
-dart fix
+dart fix --apply
 
 ## issues 
 https://github.com/dart-lang/build/issues/2835

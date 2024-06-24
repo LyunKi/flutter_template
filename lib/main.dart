@@ -67,7 +67,7 @@ class MyApp extends ConsumerWidget {
       themeMode: ThemeMode.light,
         routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         ...LibLocalizations.localizationsDelegates
       ],

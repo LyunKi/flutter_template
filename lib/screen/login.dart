@@ -39,17 +39,17 @@ class _LoginState extends ConsumerState<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      i18n!.welcome,
+                      i18n.welcome,
                       style: themeData.textTheme.titleLarge,
                     ),
                     SizedBox(height: themeData.spacing * 2),
                     PhoneNumberFormField(
                       validator: (value) {
                         final isValid = value?.isValid() ?? false;
-                        if (isValid) {
-                          return null;
+                        if (!isValid) {
+                          return i18n.welcome;
                         }
-                        return i18n!.welcome;
+                        return null;
                       },
                       initialValue: number,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -65,7 +65,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         labelText: i18n.password,
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _passwordVisible
