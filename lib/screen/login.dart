@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:harmony/utils/logger.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -16,6 +19,9 @@ class _LoginState extends ConsumerState<LoginScreen> {
   final _loginFormKey = GlobalKey<FormState>();
   var _passwordVisible = false;
 
+  PhoneNumber? _phoneNumber;
+  String? _password;
+
   PhoneNumber number = PhoneNumber.fromCca2Code(
       WidgetsBinding.instance.platformDispatcher.locale.countryCode);
 
@@ -28,7 +34,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
         body: SafeArea(
             child: Center(
           child: Card(
-            margin: EdgeInsets.all(themeData.spacing * 2),
+            margin: EdgeInsets.symmetric(horizontal: themeData.spacing * 2),
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: themeData.spacing * 2,
@@ -47,9 +53,12 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       validator: (value) {
                         final isValid = value?.isValid() ?? false;
                         if (!isValid) {
-                          return i18n.welcome;
+                          return i18n.invalidPhoneNumber;
                         }
                         return null;
+                      },
+                      onSaved: (value) {
+                        _phoneNumber = value;
                       },
                       initialValue: number,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -60,7 +69,13 @@ class _LoginState extends ConsumerState<LoginScreen> {
                     SizedBox(height: themeData.spacing),
                     TextFormField(
                       validator: (value) {
-                        return 'false';
+                        if (value == null || !passwordRegex.hasMatch(value)) {
+                          return i18n.invalidPassword;
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _password = value;
                       },
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
@@ -81,7 +96,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       ),
                       obscureText: !_passwordVisible,
                     ),
-                    SizedBox(height: themeData.spacing * 2),
+                    SizedBox(height: themeData.spacing),
                     Row(
                       children: [
                         Expanded(
@@ -91,13 +106,27 @@ class _LoginState extends ConsumerState<LoginScreen> {
                                 backgroundColor: MaterialStateProperty.all(
                                     themeData.colorScheme.primary),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (_loginFormKey.currentState?.validate() ==
+                                    true) {
+                                  _loginFormKey.currentState!.save();
+                                  logger.d(
+                                      "Login by password, ${_phoneNumber?.format()}, $_password");
+                                }
+                              },
                               child: Text(
                                 i18n.login,
                                 style: TextStyle(
                                     color: themeData.colorScheme.onPrimary),
                               ),
                             )),
+                      ],
+                    ),
+                    SizedBox(height: themeData.spacing),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(onPressed: () {}, child: Text(i18n.welcome))
                       ],
                     )
                   ],

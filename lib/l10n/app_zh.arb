@@ -3,5 +3,7 @@
     "@_business": {},
     "welcome": "开始您的旅程",
     "phoneNumber": "手机号",
+    "invalidPhoneNumber": "无法识别的手机号",
+    "invalidPassword": "密码长度不能超过30位字符，且不能包含空格",
     "password": "密码"
 }

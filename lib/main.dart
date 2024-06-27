@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/common/constants.dart';
-import 'package:flutter_template/common/utils/toast.dart';
+import 'package:flutter_template/business/constants.dart';
+import 'package:flutter_template/business/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:harmony/utils/logger.dart';
 import 'package:harmony/utils/state_logger.dart';

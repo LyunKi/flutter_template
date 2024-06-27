@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_template/common/constants.dart';
+import 'package:flutter_template/business/constants.dart';
 import 'package:flutter_template/router/routes.dart';
 import 'package:flutter_template/state/user.dart';
 import 'package:go_router/go_router.dart';

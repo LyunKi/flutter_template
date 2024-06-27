@@ -1,4 +1,4 @@
-import 'package:flutter_template/common/utils/api.dart';
+import 'package:flutter_template/business/api/api.dart';
 import 'package:harmony/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,13 +48,9 @@ class UserState extends _$UserState {
   }
 
   Future<User> loginByToken(String token) async {
-    try {
-      final response = await api.get('/demo/users/$token');
-      final userJson = response.data;
-      return User.fromJson(userJson);
-    } catch (e) {
-      rethrow;
-    }
+    final response = await api.get('/demo/users/$token');
+    final userJson = response.data;
+    return User.fromJson(userJson);
   }
 
   Future<void> logout() async {
