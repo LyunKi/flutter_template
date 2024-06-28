@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +39,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
             child: Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: themeData.spacing * 2,
-                  vertical: themeData.spacing * 4),
+                  vertical: themeData.spacing * 2),
               child: Form(
                 key: _loginFormKey,
                 child: Column(
@@ -126,9 +127,89 @@ class _LoginState extends ConsumerState<LoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(onPressed: () {}, child: Text(i18n.welcome))
+                        TextButton(
+                            onPressed: () {}, child: Text(i18n.forgotPassword))
                       ],
-                    )
+                    ),
+                    SizedBox(height: themeData.spacing * 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(onPressed: () {}, child: Text(i18n.orLogin))
+                      ],
+                    ),
+                    SizedBox(height: themeData.spacing),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              "./assets/images/github_logo.png",
+                              width: themeData.iconSize,
+                              height: themeData.iconSize,
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("./assets/images/google_logo.png",
+                                width: themeData.iconSize,
+                                height: themeData.iconSize)),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Image.asset("./assets/images/wechat_logo.png",
+                                width: themeData.iconSize,
+                                height: themeData.iconSize))
+                      ],
+                    ),
+                    SizedBox(height: themeData.spacing * 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: i18n.noAccount,
+                            ),
+                            TextSpan(
+                              text: i18n.signUp,
+                              style: TextStyle(
+                                  color: themeData.colorScheme.primary),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ]),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: themeData.spacing),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: i18n.clickToConfirm,
+                            ),
+                            TextSpan(
+                              text: i18n.terms,
+                              style: TextStyle(
+                                  color: themeData.colorScheme.primary,
+                                  decoration: TextDecoration.underline),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                            TextSpan(
+                              text: i18n.and,
+                            ),
+                            TextSpan(
+                              text: i18n.privacy,
+                              style: TextStyle(
+                                  color: themeData.colorScheme.primary,
+                                  decoration: TextDecoration.underline),
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ]),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),

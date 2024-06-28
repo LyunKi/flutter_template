@@ -5,5 +5,13 @@
     "phoneNumber": "手机号",
     "invalidPhoneNumber": "无法识别的手机号",
     "invalidPassword": "密码长度不能超过30位字符，且不能包含空格",
-    "password": "密码"
+    "password": "密码",
+    "forgotPassword": "忘记密码？",
+    "orLogin": "第三方登录",
+    "noAccount": "没有账号？",
+    "signUp": "立即注册",
+    "clickToConfirm": "点击以上按钮，说明您同意我们的",
+    "terms": " 条款 ",
+    "and": "和",
+    "privacy": " 隐私政策 "
 }
