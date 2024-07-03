@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/models/user.dart';
+import 'package:flutter_template/entities/user.dart';
 import 'package:flutter_template/state/user.dart';
 import 'package:flutter_template/widgets/loading_spinner.dart';
 

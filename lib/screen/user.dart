@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/models/common.dart';
+import 'package:flutter_template/entities//common.dart';
 import 'package:flutter_template/business/api/api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../models/user.dart';
+import '../entities//user.dart';
 
 part 'user.g.dart';
 

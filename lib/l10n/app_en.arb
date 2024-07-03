@@ -11,11 +11,11 @@
   "password": "Password",
   "forgotPassword": "Forgot password?",
   "orLogin": "or Continue with",
-  "noAccount": "Don''t have an account yet?",
+  "noAccount": "Don''t have an account yet? ",
   "signUp": "Sign Up",
-  "clickToConfirm": "By clicking button above, you agree to our",
+  "clickToConfirm": "By clicking button above, you agree to our ",
   "terms": "Terms",
-  "and": "and",
+  "and": " and ",
   "privacy": "Privacy",
   "companyName": "Cloud Dragon"
 }

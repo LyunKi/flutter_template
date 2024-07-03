@@ -3,7 +3,7 @@ import 'package:harmony/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart';
+import '../entities//user.dart';
 
 part 'user.g.dart';
 

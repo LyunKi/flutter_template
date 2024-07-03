@@ -64,13 +64,14 @@ class MyApp extends ConsumerWidget {
         elevatedButtonTheme: elevatedButtonTheme,
         inputDecorationTheme: inputDecorationTheme,
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
         routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         ...LibLocalizations.localizationsDelegates
       ],
+      locale: const Locale("en"),
       supportedLocales: AppLocalizations.supportedLocales,
     );
   }
