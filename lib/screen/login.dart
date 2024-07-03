@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:harmony/utils/logger.dart';
+import 'package:harmony/widgets/text_divider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -31,16 +33,32 @@ class _LoginState extends ConsumerState<LoginScreen> {
     final themeData = Theme.of(context);
     final i18n = AppLocalizations.of(context)!;
     return Scaffold(
-        backgroundColor: themeData.colorScheme.background,
         body: SafeArea(
+            child: Column(children: [
+      Container(
+        color: themeData.cardTheme.surfaceTintColor,
+        child: Column(
+          children: [
+            SizedBox(
+              height: themeData.spacing,
+            ),
+            Container(
             child: Center(
-          child: Card(
-            margin: EdgeInsets.symmetric(horizontal: themeData.spacing * 2),
+                child: Image.asset("./assets/images/logo.jpg"),
+              ),
+            ),
+            SizedBox(
+              height: themeData.spacing * 2,
+            ),
+          ],
+        ),
+      ),
+      Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: themeData.spacing * 2,
-                  vertical: themeData.spacing * 2),
-              child: Form(
+            padding: EdgeInsets.symmetric(horizontal: themeData.spacing * 2),
+            child: Column(
+              children: [
+                Form(
                 key: _loginFormKey,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -97,7 +115,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                       ),
                       obscureText: !_passwordVisible,
                     ),
-                    SizedBox(height: themeData.spacing),
+                      SizedBox(height: themeData.spacing * 2),
                     Row(
                       children: [
                         Expanded(
@@ -118,7 +136,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                               child: Text(
                                 i18n.login,
                                 style: TextStyle(
-                                    color: themeData.colorScheme.onPrimary),
+                                      color: themeData.colorScheme.onPrimary),
                               ),
                             )),
                       ],
@@ -131,13 +149,12 @@ class _LoginState extends ConsumerState<LoginScreen> {
                             onPressed: () {}, child: Text(i18n.forgotPassword))
                       ],
                     ),
-                    SizedBox(height: themeData.spacing * 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(onPressed: () {}, child: Text(i18n.orLogin))
-                      ],
-                    ),
+                      SizedBox(height: themeData.spacing * 2),
+                      TextDivider(
+                          label: i18n.orLogin,
+                          textStyle: themeData.textTheme.bodyMedium?.copyWith(
+                            color: themeData.colorScheme.secondary,
+                          )),
                     SizedBox(height: themeData.spacing),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -161,7 +178,17 @@ class _LoginState extends ConsumerState<LoginScreen> {
                                 height: themeData.iconSize))
                       ],
                     ),
-                    SizedBox(height: themeData.spacing * 4),
+                      SizedBox(height: themeData.spacing * 2),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(),
+                ),
+                Column(
+                  children: [
+                    SizedBox(height: themeData.spacing),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -207,14 +234,15 @@ class _LoginState extends ConsumerState<LoginScreen> {
                               recognizer: TapGestureRecognizer()..onTap = () {},
                             ),
                           ]),
-                        )
+                        ),
                       ],
                     ),
+                    SizedBox(height: themeData.spacing),
                   ],
-                ),
-              ),
-            ),
-          ),
-        )));
+                )
+              ],
+            )),
+      )
+    ])));
   }
 }
