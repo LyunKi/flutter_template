@@ -10,6 +10,7 @@ import 'package:flutter_template/business/utils/toast.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:harmony/utils/logger.dart';
 import 'package:harmony/utils/state_logger.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,8 +29,9 @@ Future main() async {
   if (dotenv.env[mode]! == debugMode) {
     observers = [const StateLogger()];
   }
-
-  runApp(ProviderScope(observers: observers, child: const MyApp()));
+  runApp(ResponsiveApp(builder: (BuildContext) {
+    return ProviderScope(observers: observers, child: const MyApp());
+  }));
 }
 
 class MyApp extends ConsumerWidget {
@@ -65,7 +67,7 @@ class MyApp extends ConsumerWidget {
         inputDecorationTheme: inputDecorationTheme,
       ),
       themeMode: ThemeMode.dark,
-        routerConfig: router,
+      routerConfig: router,
       scaffoldMessengerKey: globalMessengerKey,
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,

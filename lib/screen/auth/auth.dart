@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/screen/auth/auth_main.dart';
-
-import 'auth_logo.dart';
-
+import 'package:flutter_template/screen/auth/auth_container.dart';
 
 class AuthScreen extends ConsumerStatefulWidget {
   final String? redirect;
@@ -20,8 +17,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     final themeData = Theme.of(context);
     return Scaffold(
         backgroundColor: themeData.colorScheme.background,
-        body: SafeArea(
-            child: Column(
-                children: [const AuthLogo(), AuthMain(themeData: themeData)])));
+        body: SafeArea(child: AuthContainer()));
   }
 }

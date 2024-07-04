@@ -28,9 +28,9 @@ class SplashRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<LoginRoute>(path: '/login')
-class LoginRoute extends GoRouteData {
-  const LoginRoute();
+@TypedGoRoute<CasRoute>(path: '/cas')
+class CasRoute extends GoRouteData {
+  const CasRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -45,15 +45,5 @@ class DemoRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CountryListDemo();
-  }
-}
-
-@TypedGoRoute<ResetPasswordRoute>(path: '/reset-password')
-class ResetPasswordRoute extends GoRouteData {
-  const ResetPasswordRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SplashScreen();
   }
 }

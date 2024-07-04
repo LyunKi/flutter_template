@@ -24,6 +24,7 @@ class AuthThirdPartyLogin extends StatelessWidget {
               onPressed: () {},
               icon: BrightnessAwareImage(
                 "github_logo.png",
+                autoSwitch: true,
                 width: themeData.iconSize,
                 height: themeData.iconSize,
               )),

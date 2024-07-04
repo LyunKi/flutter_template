@@ -42,11 +42,6 @@ class _LoginByPasswordFormState extends State<LoginByPasswordForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
-            i18n.welcome,
-            style: themeData.textTheme.titleLarge,
-          ),
-          SizedBox(height: themeData.spacing),
           PhoneNumberFormField(
             validator: (value) {
               final isValid = value?.isValid() ?? false;
@@ -63,6 +58,34 @@ class _LoginByPasswordFormState extends State<LoginByPasswordForm> {
             decoration: InputDecoration(
               labelText: i18n.phoneNumber,
             ),
+          ),
+          SizedBox(height: themeData.spacing),
+          TextFormField(
+            validator: (value) {
+              if (value == null || !passwordRegex.hasMatch(value)) {
+                return i18n.invalidPassword;
+              }
+              return null;
+            },
+            onSaved: (value) {
+              _password = value;
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              labelText: i18n.password,
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
+            ),
+            obscureText: !_passwordVisible,
           ),
           SizedBox(height: themeData.spacing),
           TextFormField(

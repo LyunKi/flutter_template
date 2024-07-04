@@ -24,7 +24,7 @@ GoRouter router(RouterRef ref) {
   final router = GoRouter(
     navigatorKey: routerKey,
     refreshListenable: isAuth,
-    initialLocation: const LoginRoute().location,
+    initialLocation: const CasRoute().location,
     debugLogDiagnostics: dotenv.env[mode]! == debugMode,
     routes: $appRoutes,
   );
