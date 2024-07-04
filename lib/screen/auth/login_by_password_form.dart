@@ -3,8 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
 import 'package:harmony/utils/logger.dart';
-
-
+import 'package:responsive_builder/responsive_builder.dart';
 
 class LoginByPasswordForm extends StatefulWidget {
   const LoginByPasswordForm({super.key});
@@ -37,12 +36,19 @@ class _LoginByPasswordFormState extends State<LoginByPasswordForm> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final i18n = AppLocalizations.of(context)!;
+    final screenSize = MediaQuery.sizeOf(context);
+    CountryListMode countryListMode = CountryListMode.page;
+    if (screenSize.shortestSide >=
+        ResponsiveSizingConfig.instance.breakpoints.tablet) {
+      countryListMode = CountryListMode.modal;
+    }
     return Form(
       key: _loginFormKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           PhoneNumberFormField(
+            countryListMode: countryListMode,
             validator: (value) {
               final isValid = value?.isValid() ?? false;
               if (!isValid) {
@@ -151,4 +157,3 @@ class _LoginByPasswordFormState extends State<LoginByPasswordForm> {
     );
   }
 }
-

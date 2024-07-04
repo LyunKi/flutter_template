@@ -36,7 +36,7 @@ class AuthContainer extends StatelessWidget {
         child: SizedBox(
           width: 84.sw,
           height: min(84.sw, 68.sh),
-          child: Card(
+          child: const Card(
             child: Row(
               children: [AuthLogo(),VerticalDivider(), AuthMain()],
             ),
