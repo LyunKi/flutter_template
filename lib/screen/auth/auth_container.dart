@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:harmony/utils/logger.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+import 'package:harmony/harmony.dart';
 
 import 'auth_logo.dart';
 import 'auth_main.dart';
@@ -14,34 +13,29 @@ class AuthContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(builder: (context, sizingInformation) {
-      if (sizingInformation.screenSize.shortestSide <
-          ResponsiveSizingConfig.instance.breakpoints.tablet) {
-        return LayoutBuilder(
-            builder: (BuildContext _, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    minHeight: viewportConstraints.maxHeight,
-                    minWidth: viewportConstraints.maxWidth),
-                child: const Column(children: [
-                  AuthLogo(),
-                  AuthMain(),
-                ])),
-          );
-        });
-      }
-
-      return Center(
-        child: SizedBox(
-          width: 84.sw,
-          height: min(84.sw, 68.sh),
-          child: const Card(
-            child: Row(
-              children: [AuthLogo(),VerticalDivider(), AuthMain()],
-            ),
-          ),
-        ),
+    return LayoutBuilder(
+        builder: (BuildContext _, BoxConstraints viewportConstraints) {
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+            constraints: BoxConstraints(
+                minHeight: viewportConstraints.maxHeight,
+                minWidth: viewportConstraints.maxWidth),
+            child: !isBigScreen()
+                ? const Column(children: [
+                    AuthLogo(),
+                    AuthMain(),
+                  ])
+                : const Center(
+                    child: Card(
+                      child: IntrinsicHeight(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [AuthLogo(), VerticalDivider(), AuthMain()],
+                        ),
+                      ),
+                    ),
+                  )),
       );
     });
   }

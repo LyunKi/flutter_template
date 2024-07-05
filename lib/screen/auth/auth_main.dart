@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:harmony/harmony.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 import 'auth_footer.dart';
 import 'auth_third_party_login.dart';
@@ -29,17 +28,15 @@ class AuthMain extends StatelessWidget {
           ],
         ));
 
-    return ResponsiveBuilder(builder: (context, sizingInformation) {
-      if (sizingInformation.screenSize.shortestSide <
-          ResponsiveSizingConfig.instance.breakpoints.tablet) {
-        return content;
-      }
-      return SizedBox(
-        width: 52.sw - themeData.spacing * 4,
-        height: min(84.sw, 68.sh),
+    if (!isBigScreen()) {
+      return content;
+    }
+    return SizedBox(
+      width: min(420, 100.sw - themeData.spacing * 16 - themeData.logoSize),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.sh, horizontal: themeData.spacing * 2 ),
         child: content,
-      );
-    });
-
+      ),
+    );
   }
 }

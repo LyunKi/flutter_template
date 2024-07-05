@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/harmony.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:harmony/utils/logger.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class AuthLogo extends StatelessWidget {
   const AuthLogo({
@@ -32,15 +30,12 @@ class AuthLogo extends StatelessWidget {
       ],
     );
 
-    return ResponsiveBuilder(builder: (context, sizingInformation) {
-      if (sizingInformation.screenSize.shortestSide <
-          ResponsiveSizingConfig.instance.breakpoints.tablet) {
-        return content;
-      }
-      return SizedBox(
-        width: 32.sw,
-        child: content,
-      );
-    });
+    if (!isBigScreen()) {
+      return content;
+    }
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: themeData.spacing * 4),
+      child: content,
+    );
   }
 }
