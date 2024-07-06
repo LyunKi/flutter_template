@@ -23,17 +23,15 @@ class AuthFooter extends StatelessWidget {
                   style: themeData.textTheme.bodyMedium),
               TextSpan(
                 text: i18n.signUp,
-                style: TextStyle(
-                    color: themeData.colorScheme.primary),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {},
+                style: TextStyle(color: themeData.colorScheme.primary),
+                recognizer: TapGestureRecognizer()..onTap = () {},
               ),
             ]),
             softWrap: true,
           ),
         ),
         SizedBox(height: themeData.spacing),
-        Container(
+        IntrinsicHeight(
           child: Text.rich(
             TextSpan(children: [
               TextSpan(
@@ -44,19 +42,15 @@ class AuthFooter extends StatelessWidget {
                 style: TextStyle(
                     color: themeData.colorScheme.primary,
                     decoration: TextDecoration.underline),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {},
+                recognizer: TapGestureRecognizer()..onTap = () {},
               ),
-              TextSpan(
-                  text: i18n.and,
-                  style: themeData.textTheme.bodyMedium),
+              TextSpan(text: i18n.and, style: themeData.textTheme.bodyMedium),
               TextSpan(
                 text: i18n.privacy,
                 style: TextStyle(
                     color: themeData.colorScheme.primary,
                     decoration: TextDecoration.underline),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {},
+                recognizer: TapGestureRecognizer()..onTap = () {},
               ),
             ]),
           ),
