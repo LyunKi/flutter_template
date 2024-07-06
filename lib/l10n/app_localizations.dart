@@ -93,6 +93,12 @@ abstract class AppLocalizations {
     Locale('zh')
   ];
 
+  /// No description provided for @cas.
+  ///
+  /// In en, this message translates to:
+  /// **'Central Authentication Service'**
+  String get cas;
+
   /// Tell user to login application.
   ///
   /// In en, this message translates to:

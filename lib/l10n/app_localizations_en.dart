@@ -5,6 +5,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get cas => 'Central Authentication Service';
+
+  @override
   String get login => 'Login';
 
   @override

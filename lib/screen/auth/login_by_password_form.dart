@@ -41,11 +41,6 @@ class _LoginByPasswordFormState extends State<LoginByPasswordForm> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          // Font Family
-          Text(i18n.welcome,
-              style: themeData.textTheme.titleLarge?.copyWith(
-                  fontFamily: 'LXGWWenKaiMonoGB', fontWeight: FontWeight.bold)),
-          SizedBox(height: themeData.spacing * 4),
           PhoneNumberFormField(
             countryListMode: countryListMode,
             validator: (value) {

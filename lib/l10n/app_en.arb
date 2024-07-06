@@ -1,4 +1,5 @@
 {
+  "cas": "Central Authentication Service",
   "login": "Login",
   "@login": {
     "description": "Tell user to login application."

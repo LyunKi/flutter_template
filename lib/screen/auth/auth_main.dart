@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:harmony/harmony.dart';
 
 import 'auth_footer.dart';
@@ -15,11 +16,18 @@ class AuthMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final i18n = AppLocalizations.of(context);
     final content = Padding(
         padding: EdgeInsets.symmetric(horizontal: themeData.spacing * 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Font Family
+            Text(i18n!.welcome,
+                style: themeData.textTheme.titleLarge?.copyWith(
+                    fontFamily: 'LXGWWenKaiMonoGB',
+                    fontWeight: FontWeight.bold)),
+            SizedBox(height: themeData.spacing * 4),
             const LoginByPasswordForm(),
             SizedBox(height: themeData.spacing * 2),
             const AuthThirdPartyLogin(),

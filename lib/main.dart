@@ -51,8 +51,10 @@ class MyApp extends ConsumerWidget {
       contentPadding: EdgeInsets.symmetric(
           vertical: globalSpacing * 2, horizontal: globalSpacing),
     );
+    const locale = Locale('en');
+    final i18n = lookupAppLocalizations(locale);
     return MaterialApp.router(
-      title: 'Auth',
+      title: i18n.cas,
       theme: ThemeData.light().copyWith(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
           elevatedButtonTheme: elevatedButtonTheme,
@@ -70,7 +72,7 @@ class MyApp extends ConsumerWidget {
         ...AppLocalizations.localizationsDelegates,
         ...LibLocalizations.localizationsDelegates
       ],
-      locale: const Locale("en"),
+      locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
     );
   }

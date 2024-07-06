@@ -5,6 +5,9 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get cas => '认证服务中心';
+
+  @override
   String get login => '登录';
 
   @override
