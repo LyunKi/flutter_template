@@ -7,10 +7,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/business/constants.dart';
 import 'package:flutter_template/business/utils/toast.dart';
+import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'router/router.dart';
 
