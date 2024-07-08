@@ -16,7 +16,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Scaffold(
-        backgroundColor: themeData.colorScheme.background,
-        body: SafeArea(child: AuthContainer()));
+        backgroundColor: themeData.colorScheme.surface,
+        body: const SafeArea(child: AuthContainer()));
   }
 }

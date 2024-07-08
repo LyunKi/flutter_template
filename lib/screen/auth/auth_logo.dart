@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/harmony.dart';
-import 'package:flutter_template/l10n/app_localizations.dart';
 
 class AuthLogo extends StatelessWidget {
   const AuthLogo({
@@ -10,7 +9,6 @@ class AuthLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final i18n = AppLocalizations.of(context)!;
     final content = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
