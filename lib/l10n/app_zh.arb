@@ -1,6 +1,8 @@
 {
     "cas": "认证服务中心",
     "login": "登录",
+    "register": "注册",
+    "reset": "重置密码",
     "@_business": {},
     "welcome": "开始您的旅程",
     "phoneNumber": "手机号",
@@ -11,6 +13,8 @@
     "orLogin": "第三方登录",
     "noAccount": "没有账号？",
     "signUp": "立即注册",
+    "hasAccount": "已有账号？",
+    "loginNow": "立即登录",
     "clickToConfirm": "点击以上按钮，说明您同意我们的",
     "terms": " 条款 ",
     "and": "和",

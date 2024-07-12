@@ -11,6 +11,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get login => '登录';
 
   @override
+  String get register => '注册';
+
+  @override
+  String get reset => '重置密码';
+
+  @override
   String get welcome => '开始您的旅程';
 
   @override
@@ -36,6 +42,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get signUp => '立即注册';
+
+  @override
+  String get hasAccount => '已有账号？';
+
+  @override
+  String get loginNow => '立即登录';
 
   @override
   String get clickToConfirm => '点击以上按钮，说明您同意我们的';

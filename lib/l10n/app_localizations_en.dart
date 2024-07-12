@@ -11,6 +11,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
+  String get register => 'Register';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
   String get welcome => 'Begin Your Journey';
 
   @override
@@ -36,6 +42,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signUp => 'Sign Up';
+
+  @override
+  String get hasAccount => 'Already have an account? ';
+
+  @override
+  String get loginNow => 'Login Now';
 
   @override
   String get clickToConfirm => 'By clicking button above, you agree to our ';

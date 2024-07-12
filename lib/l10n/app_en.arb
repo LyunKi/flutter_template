@@ -1,6 +1,8 @@
 {
   "cas": "Central Authentication Service",
   "login": "Login",
+  "register": "Register",
+  "reset": "Reset",
   "@login": {
     "description": "Tell user to login application."
   },
@@ -14,6 +16,8 @@
   "orLogin": "or Continue with",
   "noAccount": "Don''t have an account yet? ",
   "signUp": "Sign Up",
+  "hasAccount": "Already have an account? ",
+  "loginNow": "Login Now",
   "clickToConfirm": "By clicking button above, you agree to our ",
   "terms": "Terms",
   "and": " and ",

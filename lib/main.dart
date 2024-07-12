@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/business/constants.dart';
 import 'package:flutter_template/business/utils/toast.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
+import 'package:flutter_template/l10n/i18n.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:harmony/harmony.dart';
@@ -26,9 +27,11 @@ Future main() async {
   if (dotenv.env[mode]! == debugMode) {
     observers = [const StateLogger()];
   }
-  runApp(ResponsiveApp((BuildContext _) {
-    return ProviderScope(observers: observers, child: const MyApp());
-  }));
+  runApp(ProviderScope(
+      observers: observers,
+      child: ResponsiveApp((BuildContext _) {
+        return const MyApp();
+      })));
 }
 
 class MyApp extends ConsumerWidget {
@@ -36,10 +39,9 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final router = ref.read(routerProvider);
     final elevatedButtonTheme = ElevatedButtonThemeData(
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(globalSpacing),
           ),
@@ -51,8 +53,9 @@ class MyApp extends ConsumerWidget {
       contentPadding: EdgeInsets.symmetric(
           vertical: globalSpacing * 2, horizontal: globalSpacing),
     );
+    const theme = ThemeMode.dark;
     const locale = Locale('en');
-    final i18n = lookupAppLocalizations(locale);
+    i18n = lookupAppLocalizations(locale);
     return MaterialApp.router(
       title: i18n.cas,
       theme: ThemeData.light().copyWith(
@@ -65,8 +68,8 @@ class MyApp extends ConsumerWidget {
         elevatedButtonTheme: elevatedButtonTheme,
         inputDecorationTheme: inputDecorationTheme,
       ),
-      themeMode: ThemeMode.dark,
-      routerConfig: router,
+      themeMode: theme,
+      routerConfig: ref.read(routerProvider),
       scaffoldMessengerKey: globalMessengerKey,
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,

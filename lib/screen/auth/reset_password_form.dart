@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template/business/validators/password.dart';
+import 'package:flutter_template/business/validators/phone_number.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
@@ -43,13 +45,7 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
         children: <Widget>[
           PhoneNumberFormField(
             countryListMode: countryListMode,
-            validator: (value) {
-              final isValid = value?.isValid() ?? false;
-              if (!isValid) {
-                return i18n.invalidPhoneNumber;
-              }
-              return null;
-            },
+            validator: phoneNumberValidator,
             onSaved: (value) {
               _phoneNumber = value;
             },
@@ -60,33 +56,16 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
             ),
           ),
           SizedBox(height: themeData.spacing),
-          TextFormField(
-            validator: (value) {
-              if (value == null || !passwordRegex.hasMatch(value)) {
-                return i18n.invalidPassword;
-              }
-              return null;
-            },
+          PasswordFormField(
+            validator: passwordValidator,
             onSaved: (value) {
               _password = value;
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               labelText: i18n.password,
-              prefixIcon: const Icon(Icons.lock),
               errorMaxLines: 2,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _passwordVisible = !_passwordVisible;
-                  });
-                },
-              ),
             ),
-            obscureText: !_passwordVisible,
           ),
           SizedBox(height: themeData.spacing * 2),
           Row(
@@ -95,28 +74,21 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                   flex: 1,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           themeData.colorScheme.primary),
                     ),
                     onPressed: () {
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
                         logger.d(
-                            "Login by password, ${_phoneNumber?.format()}, $_password");
+                            "reset, ${_phoneNumber?.format()}, $_password");
                       }
                     },
                     child: Text(
-                      i18n.login,
+                      i18n.reset,
                       style: TextStyle(color: themeData.colorScheme.onPrimary),
                     ),
                   )),
-            ],
-          ),
-          SizedBox(height: themeData.spacing),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(onPressed: () {}, child: Text(i18n.forgotPassword))
             ],
           ),
         ],
