@@ -67,6 +67,18 @@ class _RegisterFormState extends State<RegisterForm> {
               errorMaxLines: 2,
             ),
           ),
+          SizedBox(height: themeData.spacing),
+          PasswordFormField(
+            validator: passwordValidator,
+            onSaved: (value) {
+              _password = value;
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            decoration: InputDecoration(
+              labelText: i18n.repeatPassword,
+              errorMaxLines: 2,
+            ),
+          ),
           SizedBox(height: themeData.spacing * 2),
           Row(
             children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_template/entities//common.dart';
 import 'package:flutter_template/business/api/api.dart';
+import 'package:harmony/harmony.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../entities//user.dart';
@@ -17,7 +18,7 @@ class UserListState extends _$UserListState {
 
   Future<List<User>> _fetchUserList() async {
     try {
-      final response = await api.get('/demo/users?page=1');
+      final response = await api.get(GetOptions('/demo/users?page=1'));
       final userListJson = response.data;
       final result =
           Paginated<User>.fromJson(userListJson, (json) => User.fromJson(json));

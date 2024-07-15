@@ -1,5 +1,5 @@
 import 'package:flutter_template/business/api/api.dart';
-import 'package:harmony/utils/logger.dart';
+import 'package:harmony/harmony.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,7 +37,7 @@ class UserState extends _$UserState {
   Future<void> login(String userId) async {
     state = const AsyncValue.loading();
     try {
-      final response = await api.get('/demo/users/$userId');
+      final response = await api.get(GetOptions('/demo/users/$userId'));
       final userJson = response.data;
       final user = User.fromJson(userJson);
       state = AsyncValue.data(user);
@@ -48,7 +48,7 @@ class UserState extends _$UserState {
   }
 
   Future<User> loginByToken(String token) async {
-    final response = await api.get('/demo/users/$token');
+    final response = await api.get(GetOptions('/demo/users/$token'));
     final userJson = response.data;
     return User.fromJson(userJson);
   }

@@ -8,4 +8,4 @@ final options = BaseOptions(
   baseUrl: dotenv.env[baseUrl]!,
 );
 
-final api = configureDio(Dio(options));
+final api = Api(dioOptions: options);

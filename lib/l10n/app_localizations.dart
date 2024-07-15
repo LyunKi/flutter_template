@@ -147,6 +147,12 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
+  /// No description provided for @repeatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Password'**
+  String get repeatPassword;
+
   /// No description provided for @forgotPassword.
   ///
   /// In en, this message translates to:
