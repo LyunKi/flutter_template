@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:harmony/harmony.dart';
@@ -21,21 +24,12 @@ class _RegisterFormState extends State<RegisterForm> {
       WidgetsBinding.instance.platformDispatcher.locale.countryCode);
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final i18n = AppLocalizations.of(context)!;
     CountryListMode countryListMode =
         isBigScreen() ? CountryListMode.modal : CountryListMode.page;
+
     return Form(
       key: _loginFormKey,
       child: Column(
@@ -46,6 +40,11 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: phoneNumberValidator,
             onSaved: (value) {
               _phoneNumber = value;
+            },
+            onChanged: (value) {
+              setState(() {
+                _phoneNumber = value;
+              });
             },
             initialValue: number,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -63,6 +62,10 @@ class _RegisterFormState extends State<RegisterForm> {
             onChanged: (value) {
               _verificationCode = value;
             },
+            disabled: _phoneNumber?.isValid() != true,
+            decoration: InputDecoration(
+              labelText: i18n.verificationCode,
+            ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
           ),
           SizedBox(height: themeData.spacing),

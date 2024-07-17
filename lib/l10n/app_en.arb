@@ -12,6 +12,7 @@
   "invalidPhoneNumber": "Unrecognized phone number",
   "invalidPassword": "Password length cannot exceed 30 characters and cannot contain spaces",
   "password": "Password",
+  "verificationCode": "Verification Code",
   "repeatPassword": "Repeat Password",
   "forgotPassword": "Forgot password?",
   "orLogin": "or Continue with",

@@ -9,6 +9,7 @@
     "invalidPhoneNumber": "无法识别的手机号",
     "invalidPassword": "密码长度不能超过30位字符，且不能包含空格",
     "password": "密码",
+    "verificationCode": "验证码",
     "repeatPassword": "重复密码",
     "forgotPassword": "忘记密码？",
     "orLogin": "第三方登录",

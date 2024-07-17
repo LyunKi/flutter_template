@@ -32,6 +32,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get password => '密码';
 
   @override
+  String get verificationCode => '验证码';
+
+  @override
   String get repeatPassword => '重复密码';
 
   @override

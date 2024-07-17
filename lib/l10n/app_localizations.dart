@@ -147,6 +147,12 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get password;
 
+  /// No description provided for @verificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification Code'**
+  String get verificationCode;
+
   /// No description provided for @repeatPassword.
   ///
   /// In en, this message translates to:
