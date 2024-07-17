@@ -20,7 +20,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Begin Your Journey';
 
   @override
-  String get phoneNumber => 'Phone number';
+  String get phoneNumber => 'Phone Number';
 
   @override
   String get invalidPhoneNumber => 'Unrecognized phone number';

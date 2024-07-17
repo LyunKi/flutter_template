@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/business/constants.dart';
 import 'package:flutter_template/router/routes.dart';
 import 'package:flutter_template/state/user.dart';
@@ -22,6 +23,7 @@ GoRouter router(RouterRef ref) {
     );
 
   final router = GoRouter(
+    observers: [FlutterSmartDialog.observer],
     navigatorKey: routerKey,
     refreshListenable: isAuth,
     initialLocation: const CasRoute().location,

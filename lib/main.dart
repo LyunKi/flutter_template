@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_template/business/constants.dart';
-import 'package:flutter_template/business/utils/toast.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:flutter_template/l10n/i18n.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -57,6 +57,7 @@ class MyApp extends ConsumerWidget {
     const locale = Locale('en');
     i18n = lookupAppLocalizations(locale);
     return MaterialApp.router(
+      builder: FlutterSmartDialog.init(),
       title: i18n.cas,
       theme: ThemeData.light().copyWith(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
@@ -70,7 +71,6 @@ class MyApp extends ConsumerWidget {
       ),
       themeMode: theme,
       routerConfig: ref.read(routerProvider),
-      scaffoldMessengerKey: globalMessengerKey,
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         ...LibLocalizations.localizationsDelegates

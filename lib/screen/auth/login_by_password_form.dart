@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/business/validators/password.dart';
-import 'package:flutter_template/business/validators/phone_number.dart';
+import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
-import 'package:flutter_template/business/constants.dart';
 import 'package:flutter_template/screen/auth/auth_state.dart';
 import 'package:harmony/harmony.dart';
 

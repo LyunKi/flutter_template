@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/business/validators/password.dart';
-import 'package:flutter_template/business/validators/phone_number.dart';
+import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
-import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -14,10 +12,10 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _loginFormKey = GlobalKey<FormState>();
-  var _passwordVisible = false;
 
   PhoneNumber? _phoneNumber;
   String? _password;
+  String? _verificationCode;
 
   PhoneNumber number = PhoneNumber.fromCca2Code(
       WidgetsBinding.instance.platformDispatcher.locale.countryCode);
@@ -54,6 +52,18 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: InputDecoration(
               labelText: i18n.phoneNumber,
             ),
+          ),
+          SizedBox(height: themeData.spacing),
+          VerificationCodeFormField(
+            onSend: () {},
+            validator: createStringSizeValidator(6),
+            onSaved: (value) {
+              _verificationCode = value;
+            },
+            onChanged: (value) {
+              _verificationCode = value;
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
           ),
           SizedBox(height: themeData.spacing),
           PasswordFormField(
@@ -93,7 +103,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
                         logger.d(
-                            "register, ${_phoneNumber?.format()}, $_password");
+                            "register, ${_phoneNumber?.format()}, $_password $_verificationCode");
                       }
                     },
                     child: Text(

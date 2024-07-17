@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/business/validators/password.dart';
-import 'package:flutter_template/business/validators/phone_number.dart';
+import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
-import 'package:flutter_template/business/constants.dart';
 import 'package:harmony/harmony.dart';
 
 class ResetPasswordForm extends StatefulWidget {
@@ -14,7 +12,6 @@ class ResetPasswordForm extends StatefulWidget {
 
 class _ResetPasswordFormState extends State<ResetPasswordForm> {
   final _loginFormKey = GlobalKey<FormState>();
-  var _passwordVisible = false;
 
   PhoneNumber? _phoneNumber;
   String? _password;
