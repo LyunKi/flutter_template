@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_template/business/api/api.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
 import 'package:harmony/harmony.dart';
@@ -54,7 +55,13 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           SizedBox(height: themeData.spacing),
           VerificationCodeFormField(
-            onSend: () {},
+            onSend: () async {
+              final response = await api.get(GetOptions("url", data: {
+                "phone": _phoneNumber!.format(),
+                "verificationType": "register"
+              }));
+              return response.result;
+            },
             validator: createStringSizeValidator(6),
             onSaved: (value) {
               _verificationCode = value;
