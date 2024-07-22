@@ -56,9 +56,10 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: themeData.spacing),
           VerificationCodeFormField(
             onSend: () async {
-              final response = await api.get(GetOptions("url", data: {
+              final response = await api.get(GetOptions("/verification-code",
+                  data: {
                 "phone": _phoneNumber!.format(),
-                "verificationType": "register"
+                    "verification_type": "register"
               }));
               return response.result;
             },
