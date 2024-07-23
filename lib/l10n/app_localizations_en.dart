@@ -29,6 +29,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get invalidPassword => 'Password length cannot exceed 30 characters and cannot contain spaces';
 
   @override
+  String get invalidVerificationCode => 'Verification code should consist of 6 characters';
+
+  @override
   String get password => 'Password';
 
   @override

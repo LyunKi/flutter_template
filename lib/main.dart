@@ -15,12 +15,53 @@ import 'package:harmony/harmony.dart';
 
 import 'router/router.dart';
 
+final elevatedButtonTheme = ElevatedButtonThemeData(
+  style: ButtonStyle(
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(globalSpacing),
+      ),
+    ),
+  ),
+);
+const inputDecorationTheme = InputDecorationTheme(
+  border: OutlineInputBorder(),
+  contentPadding: EdgeInsets.symmetric(
+      vertical: globalSpacing * 2, horizontal: globalSpacing),
+);
+
+final theme = ThemeData.light().copyWith(
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+    elevatedButtonTheme: elevatedButtonTheme,
+    dialogTheme: const DialogTheme(
+      barrierColor: Colors.black54,
+    ),
+    snackBarTheme: const SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      showCloseIcon: true,
+    ),
+    inputDecorationTheme: inputDecorationTheme);
+final darkTheme = ThemeData.dark().copyWith(
+  colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
+  elevatedButtonTheme: elevatedButtonTheme,
+  dialogTheme: const DialogTheme(
+    barrierColor: Colors.black87,
+  ),
+  snackBarTheme: const SnackBarThemeData(
+    behavior: SnackBarBehavior.floating,
+    showCloseIcon: true,
+  ),
+  inputDecorationTheme: inputDecorationTheme,
+);
+
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   logger.d(
       'App started at ${Uri.base}, countryCode is ${WidgetsBinding.instance.platformDispatcher.locale.countryCode}');
   usePathUrlStrategy();
-  await initCountries();
+  await initHarmony();
   SharedPreferences.setPrefix('flutter_template_');
   await dotenv.load(fileName: ".env");
   List<ProviderObserver>? observers;
@@ -39,42 +80,24 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final elevatedButtonTheme = ElevatedButtonThemeData(
-      style: ButtonStyle(
-        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(globalSpacing),
-          ),
-        ),
-      ),
-    );
-    const inputDecorationTheme = InputDecorationTheme(
-      border: OutlineInputBorder(),
-      contentPadding: EdgeInsets.symmetric(
-          vertical: globalSpacing * 2, horizontal: globalSpacing),
-    );
-    const theme = ThemeMode.dark;
+    const themeMode = ThemeMode.dark;
     const locale = Locale('en');
     i18n = lookupAppLocalizations(locale);
+    initLibI18n(locale);
+    initGlobalTheme(themeMode == ThemeMode.dark ? darkTheme : theme);
+    configureSmartDialog();
     return MaterialApp.router(
       builder: FlutterSmartDialog.init(),
       title: i18n.cas,
-      theme: ThemeData.light().copyWith(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
-          elevatedButtonTheme: elevatedButtonTheme,
-          inputDecorationTheme: inputDecorationTheme),
-      darkTheme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
-        elevatedButtonTheme: elevatedButtonTheme,
-        inputDecorationTheme: inputDecorationTheme,
-      ),
-      themeMode: theme,
+      theme: theme,
+      darkTheme: darkTheme,
+      themeMode: themeMode,
       routerConfig: ref.read(routerProvider),
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
         ...LibLocalizations.localizationsDelegates
       ],
+      scaffoldMessengerKey: scaffoldMessengerKey,
       locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
     );

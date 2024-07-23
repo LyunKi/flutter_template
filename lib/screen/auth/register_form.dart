@@ -1,7 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_template/business/api/api.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
@@ -56,11 +54,11 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: themeData.spacing),
           VerificationCodeFormField(
             onSend: () async {
-              final response = await api.get(GetOptions("/verification-code",
+              final response = await api.get(GetOptions("/verification-code1",
                   data: {
-                "phone": _phoneNumber!.format(),
+                    "phone": _phoneNumber!.format(),
                     "verification_type": "register"
-              }));
+                  }));
               return response.result;
             },
             validator: createStringSizeValidator(6),
@@ -111,6 +109,19 @@ class _RegisterFormState extends State<RegisterForm> {
                           themeData.colorScheme.primary),
                     ),
                     onPressed: () {
+                      const snackBar = SnackBar(
+                        content: Row(
+                          children: [
+                            CircularProgressIndicator.adaptive(
+                              strokeWidth: 2,
+                            ),
+                            Text("Loading...")
+                          ],
+                        ),
+                        showCloseIcon: true,
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
                         logger.d(

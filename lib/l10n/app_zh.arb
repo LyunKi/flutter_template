@@ -8,6 +8,7 @@
     "phoneNumber": "手机号",
     "invalidPhoneNumber": "无法识别的手机号",
     "invalidPassword": "密码长度不能超过30位字符，且不能包含空格",
+    "invalidVerificationCode": "验证码长度应为6位字符",
     "password": "密码",
     "verificationCode": "验证码",
     "repeatPassword": "重复密码",

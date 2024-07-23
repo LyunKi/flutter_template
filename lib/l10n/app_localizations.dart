@@ -141,6 +141,12 @@ abstract class AppLocalizations {
   /// **'Password length cannot exceed 30 characters and cannot contain spaces'**
   String get invalidPassword;
 
+  /// No description provided for @invalidVerificationCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification code should consist of 6 characters'**
+  String get invalidVerificationCode;
+
   /// No description provided for @password.
   ///
   /// In en, this message translates to:

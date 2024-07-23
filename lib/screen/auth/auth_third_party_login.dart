@@ -22,7 +22,7 @@ class AuthThirdPartyLogin extends StatelessWidget {
         children: [
           IconButton(
               onPressed: () {},
-              icon: BrightnessAwareImage(
+              icon: BrightnessAwareAsset(
                 "github_logo.png",
                 autoSwitch: true,
                 width: themeData.iconSize,
@@ -30,11 +30,11 @@ class AuthThirdPartyLogin extends StatelessWidget {
               )),
           IconButton(
               onPressed: () {},
-              icon: BrightnessAwareImage("google_logo.png",
+              icon: BrightnessAwareAsset("google_logo.png",
                   width: themeData.iconSize, height: themeData.iconSize)),
           IconButton(
               onPressed: () {},
-              icon: BrightnessAwareImage("wechat_logo.png",
+              icon: BrightnessAwareAsset("wechat_logo.png",
                   width: themeData.iconSize, height: themeData.iconSize))
         ],
       )

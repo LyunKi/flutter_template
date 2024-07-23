@@ -16,7 +16,7 @@ class AuthLogo extends StatelessWidget {
         SizedBox(
           height: themeData.spacing * 2,
         ),
-        BrightnessAwareImage(
+        BrightnessAwareAsset(
           "logo.png",
           autoSwitch: true,
           height: themeData.logoSize,
