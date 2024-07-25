@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_template/business/api/api.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
@@ -109,19 +108,11 @@ class _RegisterFormState extends State<RegisterForm> {
                           themeData.colorScheme.primary),
                     ),
                     onPressed: () {
-                      const snackBar = SnackBar(
-                        content: Row(
-                          children: [
-                            CircularProgressIndicator.adaptive(
-                              strokeWidth: 2,
-                            ),
-                            Text("Loading...")
-                          ],
-                        ),
-                        showCloseIcon: true,
-                        behavior: SnackBarBehavior.floating,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      showToast(content: "123", type: ResultType.error);
+                      showToast(content: "123", type: ResultType.info);
+                      showToast(content: "123", type: ResultType.warning);
+                      showToast(content: "123", type: ResultType.success);
+
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
                         logger.d(

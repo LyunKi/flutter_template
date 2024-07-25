@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
+import 'package:flutter_template/main.dart';
 import 'package:harmony/harmony.dart';
 
 class ResetPasswordForm extends StatefulWidget {
@@ -77,8 +78,8 @@ class _ResetPasswordFormState extends State<ResetPasswordForm> {
                     onPressed: () {
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
-                        logger.d(
-                            "reset, ${_phoneNumber?.format()}, $_password");
+                        logger
+                            .d("reset, ${_phoneNumber?.format()}, $_password");
                       }
                     },
                     child: Text(

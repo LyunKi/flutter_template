@@ -15,7 +15,7 @@ import 'package:harmony/harmony.dart';
 
 import 'router/router.dart';
 
-final elevatedButtonTheme = ElevatedButtonThemeData(
+final _elevatedButtonTheme = ElevatedButtonThemeData(
   style: ButtonStyle(
     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
@@ -24,27 +24,32 @@ final elevatedButtonTheme = ElevatedButtonThemeData(
     ),
   ),
 );
-const inputDecorationTheme = InputDecorationTheme(
+const _inputDecorationTheme = InputDecorationTheme(
   border: OutlineInputBorder(),
   contentPadding: EdgeInsets.symmetric(
       vertical: globalSpacing * 2, horizontal: globalSpacing),
 );
 
-final theme = ThemeData.light().copyWith(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
-    elevatedButtonTheme: elevatedButtonTheme,
-    dialogTheme: const DialogTheme(
-      barrierColor: Colors.black54,
-    ),
-    snackBarTheme: const SnackBarThemeData(
-      behavior: SnackBarBehavior.floating,
-      showCloseIcon: true,
-    ),
-    inputDecorationTheme: inputDecorationTheme);
-final darkTheme = ThemeData.dark().copyWith(
+final _theme = ThemeData.light().copyWith(
+  colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreenAccent),
+  elevatedButtonTheme: _elevatedButtonTheme,
+  dialogTheme: const DialogTheme(
+    barrierColor: Colors.black54,
+  ),
+  snackBarTheme: const SnackBarThemeData(
+    behavior: SnackBarBehavior.floating,
+    showCloseIcon: true,
+  ),
+  inputDecorationTheme: _inputDecorationTheme,
+  extensions: <ThemeExtension<dynamic>>[
+    lightColorScheme,
+  ],
+);
+final _darkTheme = ThemeData.dark().copyWith(
   colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.lightGreenAccent, brightness: Brightness.dark),
-  elevatedButtonTheme: elevatedButtonTheme,
+          seedColor: Colors.lightGreenAccent, brightness: Brightness.dark)
+      .copyWith(),
+  elevatedButtonTheme: _elevatedButtonTheme,
   dialogTheme: const DialogTheme(
     barrierColor: Colors.black87,
   ),
@@ -52,9 +57,11 @@ final darkTheme = ThemeData.dark().copyWith(
     behavior: SnackBarBehavior.floating,
     showCloseIcon: true,
   ),
-  inputDecorationTheme: inputDecorationTheme,
+  inputDecorationTheme: _inputDecorationTheme,
+  extensions: <ThemeExtension<dynamic>>[
+    darkColorScheme,
+  ],
 );
-
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,17 +87,26 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    const themeMode = ThemeMode.dark;
-    const locale = Locale('en');
-    i18n = lookupAppLocalizations(locale);
+    final queryParameters = Uri.base.queryParameters;
+    logger.d("queryParameters: $queryParameters");
+    final themeMode = switch (queryParameters["themeMode"]) {
+      "dark" => ThemeMode.dark,
+      "light" => ThemeMode.light,
+      _ => ThemeMode.system,
+    };
+    final locale = switch (queryParameters["locale"]) {
+      "en" => const Locale("en"),
+      _ => const Locale("zh")
+    };
+    initAppI18n(locale);
     initLibI18n(locale);
-    initGlobalTheme(themeMode == ThemeMode.dark ? darkTheme : theme);
+    initGlobalTheme(isDarkMode(themeMode) ? _darkTheme : _theme);
     configureSmartDialog();
     return MaterialApp.router(
       builder: FlutterSmartDialog.init(),
       title: i18n.cas,
-      theme: theme,
-      darkTheme: darkTheme,
+      theme: _theme,
+      darkTheme: _darkTheme,
       themeMode: themeMode,
       routerConfig: ref.read(routerProvider),
       localizationsDelegates: const [
