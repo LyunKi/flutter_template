@@ -10,6 +10,7 @@ class AuthThirdPartyLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final i18n = AppLocalizations.of(context)!;
+    // TODO: 3rd login
     return Column(children: [
       TextDivider(
           label: i18n.orLogin,

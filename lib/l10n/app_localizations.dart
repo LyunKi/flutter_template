@@ -141,6 +141,12 @@ abstract class AppLocalizations {
   /// **'Password length cannot exceed 30 characters and cannot contain spaces'**
   String get invalidPassword;
 
+  /// No description provided for @invalidRepeatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'The two passwords don\'\'t match'**
+  String get invalidRepeatPassword;
+
   /// No description provided for @invalidVerificationCode.
   ///
   /// In en, this message translates to:

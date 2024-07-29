@@ -19,7 +19,7 @@ String? phoneNumberValidator(PhoneNumber? value) {
 
 createStringSizeValidator(int length) {
   return (String? value) {
-    if (value == null || value.length <= length) {
+    if (value == null || value.length > length) {
       return i18n.invalidVerificationCode;
     }
     return null;

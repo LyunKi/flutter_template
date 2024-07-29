@@ -29,6 +29,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get invalidPassword => '密码长度不能超过30位字符，且不能包含空格';
 
   @override
+  String get invalidRepeatPassword => '两次输入密码不一致';
+
+  @override
   String get invalidVerificationCode => '验证码长度应为6位字符';
 
   @override

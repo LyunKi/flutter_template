@@ -16,6 +16,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   PhoneNumber? _phoneNumber;
   String? _password;
+  String? _repeatedPassword;
   String? _verificationCode;
 
   PhoneNumber number = PhoneNumber.fromCca2Code(
@@ -25,6 +26,8 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final i18n = AppLocalizations.of(context)!;
+    final provider = Uri.base.queryParameters["provider"];
+
     CountryListMode countryListMode =
         isBigScreen() ? CountryListMode.modal : CountryListMode.page;
 
@@ -53,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
           SizedBox(height: themeData.spacing),
           VerificationCodeFormField(
             onSend: () async {
-              final response = await api.get(GetOptions("/verification-code1",
+              final response = await api.post(PostOptions("/verification-code",
                   data: {
                     "phone": _phoneNumber!.format(),
                     "verification_type": "register"
@@ -79,6 +82,9 @@ class _RegisterFormState extends State<RegisterForm> {
             onSaved: (value) {
               _password = value;
             },
+            onChanged: (value) {
+              _password = value;
+            },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               labelText: i18n.password,
@@ -87,9 +93,15 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           SizedBox(height: themeData.spacing),
           PasswordFormField(
-            validator: passwordValidator,
+            validator: (value) {
+              logger.d("value != _password, $value, $_password");
+              if (value != _password) {
+                return i18n.invalidRepeatPassword;
+              }
+              return passwordValidator(value);
+            },
             onSaved: (value) {
-              _password = value;
+              _repeatedPassword = value;
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
@@ -107,16 +119,19 @@ class _RegisterFormState extends State<RegisterForm> {
                       backgroundColor: WidgetStateProperty.all(
                           themeData.colorScheme.primary),
                     ),
-                    onPressed: () {
-                      showToast(content: "123", type: ResultType.error);
-                      showToast(content: "123", type: ResultType.info);
-                      showToast(content: "123", type: ResultType.warning);
-                      showToast(content: "123", type: ResultType.success);
-
+                    onPressed: () async {
                       if (_loginFormKey.currentState?.validate() == true) {
                         _loginFormKey.currentState!.save();
-                        logger.d(
-                            "register, ${_phoneNumber?.format()}, $_password $_verificationCode");
+                        final response =
+                            await api.post(PostOptions("/register", data: {
+                          "phone": _phoneNumber!.format(),
+                          "password": _password,
+                          "verification_code": _verificationCode,
+                          "provider": provider
+                        }));
+                        if (response.result) {
+                          //TODO: 注册成功，自动登录
+                        }
                       }
                     },
                     child: Text(

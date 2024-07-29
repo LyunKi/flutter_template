@@ -100,7 +100,8 @@ class MyApp extends ConsumerWidget {
     };
     initAppI18n(locale);
     initLibI18n(locale);
-    initGlobalTheme(isDarkMode(themeMode) ? _darkTheme : _theme);
+    final isDarkMode = isCurrentInDarkMode(themeMode);
+    initGlobalTheme(isDarkMode, isDarkMode ? _darkTheme : _theme);
     configureSmartDialog();
     return MaterialApp.router(
       builder: FlutterSmartDialog.init(),

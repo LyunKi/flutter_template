@@ -11,6 +11,7 @@
   "phoneNumber": "Phone Number",
   "invalidPhoneNumber": "Unrecognized phone number",
   "invalidPassword": "Password length cannot exceed 30 characters and cannot contain spaces",
+  "invalidRepeatPassword": "The two passwords don''t match",
   "invalidVerificationCode": "Verification code should consist of 6 characters",
   "password": "Password",
   "verificationCode": "Verification Code",
