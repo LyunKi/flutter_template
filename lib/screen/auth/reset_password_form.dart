@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/business/validators/string.dart';
 import 'package:flutter_template/l10n/app_localizations.dart';
-import 'package:flutter_template/main.dart';
 import 'package:harmony/harmony.dart';
 
 class ResetPasswordForm extends StatefulWidget {

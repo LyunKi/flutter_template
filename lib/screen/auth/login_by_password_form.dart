@@ -15,7 +15,7 @@ class LoginByPasswordForm extends ConsumerStatefulWidget {
 
 class _LoginByPasswordFormState extends ConsumerState<LoginByPasswordForm> {
   final _loginFormKey = GlobalKey<FormState>();
-  var _passwordVisible = false;
+  final _passwordVisible = false;
 
   PhoneNumber? _phoneNumber;
   String? _password;
