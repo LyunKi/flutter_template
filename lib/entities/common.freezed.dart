@@ -27,9 +27,13 @@ mixin _$Paginated<T> {
   int get totalPage => throw _privateConstructorUsedError;
   List<T> get items => throw _privateConstructorUsedError;
 
+  /// Serializes this Paginated to a JSON map.
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
       throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Paginated
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaginatedCopyWith<T, Paginated<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$PaginatedCopyWithImpl<T, $Res, $Val extends Paginated<T>>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Paginated
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -108,6 +114,8 @@ class __$$PaginatedImplCopyWithImpl<T, $Res>
       _$PaginatedImpl<T> _value, $Res Function(_$PaginatedImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of Paginated
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -193,12 +201,14 @@ class _$PaginatedImpl<T> implements _Paginated<T> {
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, page, pageSize, totalNum,
       totalPage, const DeepCollectionEquality().hash(_items));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Paginated
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaginatedImplCopyWith<T, _$PaginatedImpl<T>> get copyWith =>
@@ -232,8 +242,11 @@ abstract class _Paginated<T> implements Paginated<T> {
   int get totalPage;
   @override
   List<T> get items;
+
+  /// Create a copy of Paginated
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaginatedImplCopyWith<T, _$PaginatedImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
